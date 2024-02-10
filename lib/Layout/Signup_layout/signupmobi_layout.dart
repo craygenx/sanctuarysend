@@ -13,12 +13,12 @@ class SignUpMobi extends StatelessWidget {
       body: SizedBox(
         child: Column(
           children: [
-            const Padding(
-              padding: EdgeInsets.only(bottom: 30.0),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 30.0),
               child: SizedBox(
                   height: 200,
                   width: 200,
-                  child: Placeholder()
+                  child: Image.asset('assets/regra.jpg')
               ),
             ),
             const Padding(

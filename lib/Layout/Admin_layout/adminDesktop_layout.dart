@@ -30,7 +30,9 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                       child: Container(
                         height: MediaQuery.of(context).size.height * 1/2,
                         color: Colors.white,
-                        // child: Image.asset('assets/pie.jpg'),
+                        child: Image.asset('assets/pie.jpg',
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                     FractionallySizedBox(

@@ -35,7 +35,7 @@ class _OtpDesktopState extends State<OtpDesktop> {
                   SizedBox(
                     height: MediaQuery.of(context).size.width * 1/4,
                     width: MediaQuery.of(context).size.height * 1/4,
-                    // child: Image.asset('assets/regra.jpg'),
+                    child: Image.asset('assets/regra.jpg'),
                   )
                 ],
               ),

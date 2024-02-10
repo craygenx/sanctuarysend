@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:sanctuarysend/Layout/Otp_layout/otpdesktop_layout.dart';
 import 'package:sanctuarysend/Layout/Otp_layout/otpmobi_layout.dart';
 import 'package:sanctuarysend/Responsive/otp_breakpoint.dart';
-import 'package:sanctuarysend/Screens/otp_screen.dart';
 
 import '../../widgets/custom_bold_txt.dart';
 import '../../widgets/initial_appbar.dart';
@@ -22,12 +21,12 @@ class _SignInState extends State<SignIn> {
       body: SizedBox(
         child: Column(
           children: [
-            const Padding(
-              padding: EdgeInsets.only(bottom: 60.0),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 60.0),
               child: SizedBox(
                   width: 200,
                   height: 200,
-                  child: Placeholder()
+                  child: Image.asset('assets/regra.jpg')
               ),
             ),
             const Padding(

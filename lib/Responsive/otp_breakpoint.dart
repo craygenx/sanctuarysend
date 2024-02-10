@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sanctuarysend/Screens/otp_screen.dart';
 
 class OtpResponsiveLayout extends StatelessWidget {
   final Widget mobileLayout;

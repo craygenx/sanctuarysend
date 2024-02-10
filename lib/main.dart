@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sanctuarysend/Screens/signin_screen.dart';
+import 'package:sanctuarysend/Layout/Otp_layout/otpdesktop_layout.dart';
+import 'package:sanctuarysend/Responsive/signin_breakpoint.dart';
+
+import 'Layout/Signin_layout/signinmobi_layout.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +21,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const SignIn(),
+      debugShowCheckedModeBanner: false,
+      home: const SigninResponsiveLayout(mobileLayout: SignIn(), desktopLayout: OtpDesktop(),),
     );
   }
 }

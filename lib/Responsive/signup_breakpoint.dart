@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class MainSplashResponsiveLayout extends StatelessWidget {
+class SignupResponsiveLayout extends StatelessWidget {
   final Widget mobileLayout;
   final Widget desktopLayout;
 
-  const MainSplashResponsiveLayout({super.key, required this.mobileLayout, required this.desktopLayout});
+  const SignupResponsiveLayout({super.key, required this.mobileLayout, required this.desktopLayout});
 
   @override
   Widget build(BuildContext context) {

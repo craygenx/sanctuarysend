@@ -23,7 +23,7 @@ class SignUpMobi extends StatelessWidget {
             ),
             const Padding(
               padding: EdgeInsets.only(bottom: 8.0),
-              child: BoldText(text: 'SIGN UP', fontSize: 22,),
+              child: BoldText(text: 'SIGN UP', fontSize: 18.0,),
             ),
             const Padding(
               padding: EdgeInsets.only(bottom: 30.0),
@@ -118,7 +118,7 @@ class SignUpMobi extends StatelessWidget {
                               borderRadius: BorderRadius.circular(20.0)
                           )
                       ),
-                      child: const BoldText(text: 'SEND OTP', fontSize: 22.0,),
+                      child: const BoldText(text: 'SEND OTP', fontSize: 18.0,),
                     ),
                   )
                 ],

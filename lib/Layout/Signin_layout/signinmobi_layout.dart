@@ -31,7 +31,7 @@ class _SignInState extends State<SignIn> {
             ),
             const Padding(
               padding: EdgeInsets.only(bottom: 15.0),
-              child: BoldText(text: 'SIGN IN', fontSize: 22.0,),
+              child: BoldText(text: 'SIGN IN', fontSize: 18.0,),
             ),
             const Padding(
               padding: EdgeInsets.only(bottom: 30.0),
@@ -92,7 +92,7 @@ class _SignInState extends State<SignIn> {
                                 borderRadius: BorderRadius.circular(20.0)
                             )
                         ),
-                        child: const BoldText(text: 'SEND OTP', fontSize: 22.0,),
+                        child: const BoldText(text: 'SEND OTP', fontSize: 18.0,),
                       ),
                     ),
                   )

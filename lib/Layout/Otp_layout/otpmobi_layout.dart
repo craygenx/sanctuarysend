@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:sanctuarysend/Layout/Admin_layout/adminDesktop_layout.dart';
 import 'package:sanctuarysend/Layout/Admin_layout/adminMobi_layout.dart';
 import 'package:sanctuarysend/Responsive/admin_breakpoint.dart';
-import 'package:sanctuarysend/Screens/admin_screen.dart';
 
 import '../../widgets/custom_bold_txt.dart';
 import '../../widgets/initial_appbar.dart';
@@ -34,7 +33,7 @@ class _OtpScreenState extends State<OtpScreenMobi> {
             ),
             const Padding(
               padding: EdgeInsets.only(bottom: 15.0),
-              child: BoldText(text: 'VERIFICATION', fontSize: 22,),
+              child: BoldText(text: 'VERIFICATION', fontSize: 18.0,),
             ),
             const Padding(
               padding: EdgeInsets.only(bottom: 30.0),
@@ -73,7 +72,7 @@ class _OtpScreenState extends State<OtpScreenMobi> {
                                       borderRadius: BorderRadius.circular(20.0)
                                   )
                               ),
-                              child: const BoldText(text: 'VERIFY', fontSize: 22,),
+                              child: const BoldText(text: 'VERIFY', fontSize: 18.0,),
                             ),
                           ),
                         )

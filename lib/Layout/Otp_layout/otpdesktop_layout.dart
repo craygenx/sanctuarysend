@@ -33,9 +33,11 @@ class _OtpDesktopState extends State<OtpDesktop> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: MediaQuery.of(context).size.width * 1/4,
-                    width: MediaQuery.of(context).size.height * 1/4,
-                    child: Image.asset('assets/regra.jpg'),
+                    height: MediaQuery.of(context).size.width * 1/3,
+                    width: MediaQuery.of(context).size.height * 1/3,
+                    child: Image.asset('assets/regra.jpg',
+                      fit: BoxFit.fill
+                    ),
                   )
                 ],
               ),
@@ -45,15 +47,17 @@ class _OtpDesktopState extends State<OtpDesktop> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
+                  SizedBox(
                     width: MediaQuery.of(context).size.width / 1/3,
-                    color: Colors.grey,
                     child: Column(
                       children: [
                         const SizedBox(
-                          child: Center(child: BoldText(text: 'VERIFICATION')),
+                          child: Center(child: BoldText(text: 'VERIFICATION', fontSize: 18.0,)),
                         ),
-                        const BoldText(text: 'Lorem ipsum dolor sit amet conjecture anglicising elite. Maxime Lolita'),
+                        const Padding(
+                          padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                          child: BoldText(text: 'Lorem ipsum dolor sit amet conjecture anglicising elite. Maxime Lolita'),
+                        ),
                         SizedBox(
                           width: MediaQuery.of(context).size.width /2,
                           height: 100,
@@ -65,16 +69,19 @@ class _OtpDesktopState extends State<OtpDesktop> {
                                 child: Icon(Icons.email),
                               ),
                               Expanded(
-                                child: SizedBox(
-                                  width: 100,
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                        hintText: 'JohnDoe@gmail.com',
-                                        focusedBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.black
-                                            )
-                                        )
+                                child: Padding(
+                                  padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                                  child: SizedBox(
+                                    width: 100,
+                                    child: TextField(
+                                      decoration: InputDecoration(
+                                          hintText: 'JohnDoe@gmail.com',
+                                          focusedBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.black
+                                              )
+                                          )
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -89,12 +96,9 @@ class _OtpDesktopState extends State<OtpDesktop> {
                         SizedBox(
                           child: Column(
                             children: [
-                              Container(
+                              SizedBox(
                                 width: MediaQuery.of(context).size.width * 1/3,
                                 height: 150,
-                                decoration: const BoxDecoration(
-                                    color: Colors.cyanAccent
-                                ),
                                 child: Column(
                                   children: [
                                     const SizedBox(
@@ -116,7 +120,7 @@ class _OtpDesktopState extends State<OtpDesktop> {
                                                   borderRadius: BorderRadius.circular(20.0)
                                               )
                                           ),
-                                          child: const BoldText(text: 'VERIFY', fontSize: 22,),
+                                          child: const BoldText(text: 'VERIFY', fontSize: 18.0,),
                                         ),
                                       ),
                                     )

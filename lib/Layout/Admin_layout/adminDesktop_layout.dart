@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sanctuarysend/Layout/Payment_layout/paymentDesktop_layout.dart';
+import 'package:sanctuarysend/Layout/Payment_layout/paymentMobi_layout.dart';
+import 'package:sanctuarysend/Responsive/payment_breakpoint.dart';
 
 import '../../widgets/custom_bold_txt.dart';
 import '../../widgets/main_appbar.dart';
@@ -244,12 +247,12 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                             child: Column(
                               children: [
                                 const BoldText(text: 'Ksh: 0.00', fontSize: 30.0, fontWeight: FontWeight.w900,),
-                                const Expanded(
+                                Expanded(
                                   child: SizedBox(
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        SizedBox(
+                                        const SizedBox(
                                           child: Column(
                                             children: [
                                               Icon(Icons.money_outlined),
@@ -257,12 +260,17 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                                             ],
                                           ),
                                         ),
-                                        SizedBox(
-                                          child: Column(
-                                            children: [
-                                              Icon(Icons.money),
-                                              BoldText(text: 'Top-Up')
-                                            ],
+                                        GestureDetector(
+                                          onTap: (){
+                                            Navigator.push(context, MaterialPageRoute(builder: (context) => const PaymentResponsiveLayout(mobileLayout: PaymentMobiLayout(), desktopLayout: PaymentDesktopLayout())));
+                                          },
+                                          child: const SizedBox(
+                                            child: Column(
+                                              children: [
+                                                Icon(Icons.money),
+                                                BoldText(text: 'Top-Up')
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ],

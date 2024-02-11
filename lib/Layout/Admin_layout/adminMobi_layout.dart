@@ -95,7 +95,6 @@ class _AdminState extends State<AdminMobiLayout> {
                       Expanded(
                         child: Container(
                             padding: const EdgeInsets.all(16.0),
-                            color: Colors.lightBlue,
                             height: 80,
                             width: MediaQuery.of(context).size.width,
                             child: SizedBox(

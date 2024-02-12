@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../widgets/custom_bold_txt.dart';
 import '../../widgets/main_appbar.dart';
@@ -11,6 +12,7 @@ class AdminMobiLayout extends StatefulWidget {
 }
 
 class _AdminState extends State<AdminMobiLayout> {
+  // TabController _tabController = TabController(length: 2, vsync: ScrollableState());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,6 +24,7 @@ class _AdminState extends State<AdminMobiLayout> {
       body: SingleChildScrollView(
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
+          // constraints: const BoxConstraints.expand(height: null),
           // width: MediaQuery.of(context).size.width,
           child: Column(
             children: [
@@ -39,9 +42,37 @@ class _AdminState extends State<AdminMobiLayout> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 10.0),
                 child: Container(
-                  color: Colors.black12,
+                  color: const Color.fromRGBO(242, 250, 253, 1),
                   width: MediaQuery.of(context).size.width,
                   height: 60,
+                  child: SizedBox(
+                    height: 50,
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 40,
+                          height: 40,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                          ),
+                          child: const Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.calendar_month_outlined),
+                            ],
+                          ),
+                        ),
+                        const Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            BoldText(text: '24 Jan 2024'),
+                            BoldText(text: '18% more than last month'),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
               Padding(
@@ -107,24 +138,30 @@ class _AdminState extends State<AdminMobiLayout> {
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           Container(
-                                            color: Colors.grey,
+                                            color: const Color.fromRGBO(242, 250, 253, 1),
                                             width: 170,
                                             height: 40,
                                             child: const Row(
                                               children: [
-                                                Icon(Icons.favorite),
+                                                Padding(
+                                                  padding: EdgeInsets.only(right: 10.0),
+                                                  child: FaIcon(FontAwesomeIcons.handHoldingHeart),
+                                                ),
                                                 BoldText(text: 'ThanksGiving')
                                               ],
                                             ),
                                           ),
                                           Container(
-                                            color: Colors.grey,
+                                            color: const Color.fromRGBO(242, 250, 253, 1),
                                             width: 170,
                                             height: 40,
                                             child: const Row(
                                               children: [
-                                                Icon(Icons.money_sharp),
-                                                BoldText(text: 'ThanksGiving')
+                                                Padding(
+                                                  padding: EdgeInsets.only(right: 10.0),
+                                                  child: FaIcon(FontAwesomeIcons.handHoldingDollar),
+                                                ),
+                                                BoldText(text: 'Offering')
                                               ],
                                             ),
                                           ),
@@ -137,23 +174,29 @@ class _AdminState extends State<AdminMobiLayout> {
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Container(
-                                          color: Colors.grey,
+                                          color: const Color.fromRGBO(242, 250, 253, 1),
                                           width: 170,
                                           height: 40,
                                           child: const Row(
                                             children: [
-                                              Icon(Icons.money_outlined),
+                                              Padding(
+                                                padding: EdgeInsets.only(right: 10.0),
+                                                child: FaIcon(FontAwesomeIcons.envelopeOpen),
+                                              ),
                                               BoldText(text: 'Tithe')
                                             ],
                                           ),
                                         ),
                                         Container(
-                                          color: Colors.grey,
+                                          color: const Color.fromRGBO(242, 250, 253, 1),
                                           width: 170,
                                           height: 40,
                                           child: const Row(
                                             children: [
-                                              Icon(Icons.attach_money_sharp),
+                                              Padding(
+                                                padding: EdgeInsets.only(right: 10.0),
+                                                child: FaIcon(FontAwesomeIcons.circleInfo),
+                                              ),
                                               BoldText(text: 'Miscellaneous')
                                             ],
                                           ),
@@ -172,34 +215,106 @@ class _AdminState extends State<AdminMobiLayout> {
               ),
               Expanded(
                 child: SizedBox(
-                  height: 120,
+                  height: 200,
                   width: MediaQuery.of(context).size.width,
-                  child: const Column(
+                  child: Column(
                     children: [
                       DefaultTabController(
                         length: 2,
-                        child: TabBar(
-                          tabs: [
-                            Tab(child: Row(
-                              children: [
-                                Icon(Icons.people_alt),
-                                Padding(
-                                  padding: EdgeInsets.only(left: 15.0),
-                                  child: BoldText(text: 'Services', fontSize: 16,),
-                                )
-                              ],
-                            ),),
-                            Tab(child: Row(
-                              children: [
-                                Icon(Icons.event_sharp),
-                                Padding(
-                                  padding: EdgeInsets.only(left: 15.0),
-                                  child: BoldText(text: 'Events', fontSize: 16,),
-                                )
-                              ],
-                            ),
-                            ),
-                          ],
+                        child: SizedBox(
+                          height: 200,
+                          width: MediaQuery.of(context).size.width,
+                          child: Column(
+                            children: [
+                              const TabBar(
+                                tabs: [
+                                  Tab(child: Row(
+                                    children: [
+                                      Icon(Icons.people_alt),
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 15.0),
+                                        child: BoldText(text: 'Services', fontSize: 16,),
+                                      )
+                                    ],
+                                  ),),
+                                  Tab(child: Row(
+                                    children: [
+                                      Icon(Icons.event_sharp),
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 15.0),
+                                        child: BoldText(text: 'Events', fontSize: 16,),
+                                      )
+                                    ],
+                                  ),
+                                  ),
+                                ],
+                              ),
+                              Expanded(
+                                child: TabBarView(
+                                  children: [
+                                    Container(
+                                      height: 200,
+                                      color: const Color.fromRGBO(242, 245, 243, 1),
+                                      child: Column(
+                                        children: [
+                                          const SizedBox(
+                                            height: 40,
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                SizedBox(
+                                                  width: 100,
+                                                  child: Row(
+                                                    children: [
+                                                      Icon(Icons.edit_calendar),
+                                                      BoldText(text: '09 Feb')
+                                                    ],
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: 100,
+                                                  child: Row(
+                                                    children: [
+                                                      Icon(Icons.access_time_filled_outlined),
+                                                      BoldText(text: '10:15 AM')
+                                                    ],
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                          Container(
+                                              width: MediaQuery.of(context).size.width,
+                                              height: 100,
+                                              color: const Color.fromRGBO(242, 250, 253, 1),
+                                              child: const Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text('Leadership Summit 2024',
+                                                    style: TextStyle(
+                                                        fontSize: 18,
+                                                        fontWeight: FontWeight.bold
+                                                    ),
+                                                  ),
+                                                  Text('Lorem ipsum dolor sit amet conjecture anglicising elite. Maxime Lolita dolor sit amet conjecture anglicising',
+                                                    maxLines: 3,
+                                                    style: TextStyle(
+                                                      overflow: TextOverflow.ellipsis,
+                                                    ),
+                                                  ),
+                                                  // BoldText(text: 'Lorem ipsum dolor sit amet conjecture anglicising elite. Maxime Lolita dolor sit amet conjecture anglicising')
+                                                ],
+                                              )
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    const BoldText(text: 'Tab 2')
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ],

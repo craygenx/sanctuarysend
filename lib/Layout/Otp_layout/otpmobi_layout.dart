@@ -49,7 +49,7 @@ class _OtpScreenState extends State<OtpScreenMobi> {
                     width: MediaQuery.of(context).size.width,
                     height: 150,
                     decoration: const BoxDecoration(
-                        color: Colors.cyanAccent
+                        color: Color.fromRGBO(242, 250, 253, 0)
                     ),
                     child: Column(
                       children: [

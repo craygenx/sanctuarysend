@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sanctuarysend/Layout/Payment_layout/paymentDesktop_layout.dart';
 import 'package:sanctuarysend/Layout/Payment_layout/paymentMobi_layout.dart';
 import 'package:sanctuarysend/Responsive/payment_breakpoint.dart';
@@ -90,11 +91,12 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                                     Container(
                                       width: 150,
                                       height: 50,
-                                      color: Colors.grey,
+                                      color: const Color.fromRGBO(242, 250, 253, 1),
                                       child: const Row(
                                         children: [
-                                          Icon(Icons.favorite,
-                                            size: 22,
+                                          Padding(
+                                            padding: EdgeInsets.only(right: 10.0),
+                                            child: FaIcon(FontAwesomeIcons.handHoldingHeart),
                                           ),
                                           BoldText(text: 'ThanksGiving',
                                           )
@@ -105,22 +107,26 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                                     Container(
                                       width: 150,
                                       height: 50,
-                                      color: Colors.grey,
+                                      color: const Color.fromRGBO(242, 250, 253, 1),
                                       child: const Row(
                                         children: [
-                                          Icon(Icons.money_sharp),
-                                          BoldText(text: 'ThanksGiving')
+                                          Padding(
+                                            padding: EdgeInsets.only(right: 10.0),
+                                            child: FaIcon(FontAwesomeIcons.handHoldingDollar),
+                                          ),
+                                          BoldText(text: 'Offering')
                                         ],
                                       ),
                                     ),
                                     Container(
                                       width: 150,
                                       height: 50,
-                                      color: Colors.grey,
+                                      color: const Color.fromRGBO(242, 250, 253, 1),
                                       child: const Row(
                                         children: [
-                                          Icon(Icons.money_outlined,
-                                            size: 22,
+                                          Padding(
+                                            padding: EdgeInsets.only(right: 10.0),
+                                            child: FaIcon(FontAwesomeIcons.envelopeOpen),
                                           ),
                                           BoldText(text: 'Tithe')
                                         ],
@@ -129,11 +135,12 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                                     Container(
                                       width: 150,
                                       height: 50,
-                                      color: Colors.grey,
+                                      color: const Color.fromRGBO(242, 250, 253, 1),
                                       child: const Row(
                                         children: [
-                                          Icon(Icons.attach_money_sharp,
-                                            size: 22,
+                                          Padding(
+                                            padding: EdgeInsets.only(right: 8.0),
+                                            child: FaIcon(FontAwesomeIcons.circleInfo),
                                           ),
                                           BoldText(text: 'Miscellaneous')
                                         ],
@@ -238,7 +245,7 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(
-                      height: 300,
+                      height: 200,
                       width: MediaQuery.of(context).size.width * 1/4,
                       child: Column(
                         children: [
@@ -255,7 +262,7 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                                         const SizedBox(
                                           child: Column(
                                             children: [
-                                              Icon(Icons.money_outlined),
+                                              FaIcon(FontAwesomeIcons.moneyBillTrendUp),
                                               BoldText(text: 'Expenses')
                                             ],
                                           ),
@@ -267,7 +274,7 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                                           child: const SizedBox(
                                             child: Column(
                                               children: [
-                                                Icon(Icons.money),
+                                                FaIcon(FontAwesomeIcons.moneyBillTransfer),
                                                 BoldText(text: 'Top-Up')
                                               ],
                                             ),
@@ -277,8 +284,9 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(
+                                Container(
                                   height: 50,
+                                  color: const Color.fromRGBO(242, 250, 253, 1),
                                   child: Row(
                                     children: [
                                       Container(
@@ -335,9 +343,10 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                             height: 200,
                             child: Column(
                               children: [
-                                const SizedBox(
+                                Container(
                                   height: 40,
-                                  child: Row(
+                                  color: const Color.fromRGBO(242, 245, 253, 1),
+                                  child: const Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       SizedBox(
@@ -361,9 +370,10 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                                     ],
                                   ),
                                 ),
-                                SizedBox(
+                                Container(
                                     width: MediaQuery.of(context).size.width * 1/4,
                                     height: 100,
+                                    color: const Color.fromRGBO(242, 250, 253, 1),
                                     child: const Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [

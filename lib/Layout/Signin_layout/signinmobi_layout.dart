@@ -40,63 +40,66 @@ class _SignInState extends State<SignIn> {
                 fontSize: 16.0,fontWeight:  FontWeight.normal,
               ),
             ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 200,
-              decoration: const BoxDecoration(
-                  color: Colors.cyanAccent
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.only(right: 15),
-                          child: Icon(Icons.email),
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 3/4,
-                          child: const TextField(
-                            decoration: InputDecoration(
-                                hintText: 'JohnDoe@gmail.com',
-                                focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.black
-                                    )
-                                )
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: 200,
+                decoration: const BoxDecoration(
+                    color: Color.fromRGBO(242, 250, 253, 1)
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.only(right: 15),
+                            child: Icon(Icons.email),
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 3/4,
+                            child: const TextField(
+                              decoration: InputDecoration(
+                                  hintText: 'JohnDoe@gmail.com',
+                                  focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Colors.black
+                                      )
+                                  )
+                              ),
                             ),
                           ),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.only(left: 15.0),
-                          child: Icon(Icons.verified_user),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 30.0),
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width * 3/4,
-                      child: ElevatedButton(
-                        onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => const OtpResponsiveLayout(mobileLayout: OtpScreenMobi(), desktopLayout: OtpDesktop())));
-                        },
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.deepPurpleAccent,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20.0)
-                            )
-                        ),
-                        child: const BoldText(text: 'SEND OTP', fontSize: 18.0,),
+                          const Padding(
+                            padding: EdgeInsets.only(left: 15.0),
+                            child: Icon(Icons.verified_user),
+                          ),
+                        ],
                       ),
                     ),
-                  )
-                ],
+                    Padding(
+                      padding: const EdgeInsets.only(top: 30.0),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width * 3/4,
+                        child: ElevatedButton(
+                          onPressed: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const OtpResponsiveLayout(mobileLayout: OtpScreenMobi(), desktopLayout: OtpDesktop())));
+                          },
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.deepPurpleAccent,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0)
+                              )
+                          ),
+                          child: const BoldText(text: 'SEND OTP', fontSize: 18.0,),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             )
           ],

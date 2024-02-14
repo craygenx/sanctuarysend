@@ -26,18 +26,22 @@ class _SignInState extends State<SignIn> {
               child: SizedBox(
                   width: 200,
                   height: 200,
-                  child: Image.asset('assets/regra.jpg')
-              ),
+                  child: Image.asset('assets/regra.jpg')),
             ),
             const Padding(
               padding: EdgeInsets.only(bottom: 15.0),
-              child: BoldText(text: 'SIGN IN', fontSize: 18.0,),
+              child: BoldText(
+                text: 'SIGN IN',
+                fontSize: 18.0,
+              ),
             ),
             const Padding(
               padding: EdgeInsets.only(bottom: 30.0),
               child: BoldText(
-                text: 'Lorem ipsum dolor sit amet conjecture anglicising elite. Maxime Lolita',
-                fontSize: 16.0,fontWeight:  FontWeight.normal,
+                text:
+                    'Lorem ipsum dolor sit amet conjecture anglicising elite. Maxime Lolita',
+                fontSize: 16.0,
+                fontWeight: FontWeight.normal,
               ),
             ),
             Padding(
@@ -46,8 +50,7 @@ class _SignInState extends State<SignIn> {
                 width: MediaQuery.of(context).size.width,
                 height: 200,
                 decoration: const BoxDecoration(
-                    color: Color.fromRGBO(242, 250, 253, 1)
-                ),
+                    color: Color.fromRGBO(242, 250, 253, 1)),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -57,24 +60,21 @@ class _SignInState extends State<SignIn> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Padding(
-                            padding: EdgeInsets.only(right: 15),
+                            padding: EdgeInsets.only(right: 8),
                             child: Icon(Icons.email),
                           ),
                           SizedBox(
-                            width: MediaQuery.of(context).size.width * 3/4,
+                            width: MediaQuery.of(context).size.width * 3 / 4,
                             child: const TextField(
                               decoration: InputDecoration(
                                   hintText: 'JohnDoe@gmail.com',
                                   focusedBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Colors.black
-                                      )
-                                  )
-                              ),
+                                      borderSide:
+                                          BorderSide(color: Colors.black))),
                             ),
                           ),
                           const Padding(
-                            padding: EdgeInsets.only(left: 15.0),
+                            padding: EdgeInsets.only(left: 8.0),
                             child: Icon(Icons.verified_user),
                           ),
                         ],
@@ -83,18 +83,25 @@ class _SignInState extends State<SignIn> {
                     Padding(
                       padding: const EdgeInsets.only(top: 30.0),
                       child: SizedBox(
-                        width: MediaQuery.of(context).size.width * 3/4,
+                        width: MediaQuery.of(context).size.width * 3 / 4,
                         child: ElevatedButton(
-                          onPressed: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const OtpResponsiveLayout(mobileLayout: OtpScreenMobi(), desktopLayout: OtpDesktop())));
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const OtpResponsiveLayout(
+                                            mobileLayout: OtpScreenMobi(),
+                                            desktopLayout: OtpDesktop())));
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.deepPurpleAccent,
                               shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20.0)
-                              )
+                                  borderRadius: BorderRadius.circular(20.0))),
+                          child: const BoldText(
+                            text: 'SEND OTP',
+                            fontSize: 18.0,
                           ),
-                          child: const BoldText(text: 'SEND OTP', fontSize: 18.0,),
                         ),
                       ),
                     )

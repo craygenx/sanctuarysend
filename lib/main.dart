@@ -4,7 +4,6 @@ import 'package:sanctuarysend/Responsive/signin_breakpoint.dart';
 
 import 'Layout/Signin_layout/signinmobi_layout.dart';
 
-
 void main() {
   runApp(const MyApp());
 }
@@ -18,11 +17,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'SanctuarySend',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        fontFamily: 'montserrat',
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: const SigninResponsiveLayout(mobileLayout: SignIn(), desktopLayout: OtpDesktop(),),
+      home: const SigninResponsiveLayout(
+        mobileLayout: SignIn(),
+        desktopLayout: OtpDesktop(),
+      ),
     );
   }
 }

@@ -25,16 +25,17 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
           child: Row(
             children: [
               SizedBox(
-                width: MediaQuery.of(context).size.width * 3/4,
+                width: MediaQuery.of(context).size.width * 3 / 4,
                 height: MediaQuery.of(context).size.height,
                 child: Column(
                   children: [
                     FractionallySizedBox(
                       widthFactor: 1,
                       child: Container(
-                        height: MediaQuery.of(context).size.height * 1/2,
+                        height: MediaQuery.of(context).size.height * 0.6,
                         color: Colors.white,
-                        child: Image.asset('assets/pie.jpg',
+                        child: Image.asset(
+                          'assets/pie.jpg',
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -48,18 +49,25 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                             SizedBox(
                               height: 45,
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  const BoldText(text: 'CATEGORIES', fontSize: 22,),
+                                  const BoldText(
+                                    text: 'CATEGORIES',
+                                    fontSize: 22,
+                                  ),
                                   SizedBox(
                                     width: 150,
                                     height: 40,
                                     child: Row(
                                       children: [
                                         Padding(
-                                          padding: const EdgeInsets.only(right: 15.0),
-                                          child: IconButton(onPressed: (){},
-                                            icon: const Icon(Icons.file_open_rounded),
+                                          padding: const EdgeInsets.only(
+                                              right: 15.0),
+                                          child: IconButton(
+                                            onPressed: () {},
+                                            icon: const Icon(
+                                                Icons.file_open_rounded),
                                           ),
                                         ),
                                         Container(
@@ -67,12 +75,9 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                                           height: 45,
                                           decoration: const BoxDecoration(
                                               shape: BoxShape.circle,
-                                              color: Colors.grey
-                                          ),
+                                              color: Colors.grey),
                                           child: const Center(
-                                            child: Icon(
-                                                Icons.app_registration
-                                            ),
+                                            child: Icon(Icons.app_registration),
                                           ),
                                         )
                                       ],
@@ -84,35 +89,43 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                             Expanded(
                               child: SizedBox(
                                 height: 100,
-                                width: MediaQuery.of(context).size.width * 3/4,
+                                width:
+                                    MediaQuery.of(context).size.width * 3 / 4,
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Container(
                                       width: 150,
                                       height: 50,
-                                      color: const Color.fromRGBO(242, 250, 253, 1),
+                                      color: const Color.fromRGBO(
+                                          242, 250, 253, 1),
                                       child: const Row(
                                         children: [
                                           Padding(
-                                            padding: EdgeInsets.only(right: 10.0),
-                                            child: FaIcon(FontAwesomeIcons.handHoldingHeart),
+                                            padding:
+                                                EdgeInsets.only(right: 10.0),
+                                            child: FaIcon(FontAwesomeIcons
+                                                .handHoldingHeart),
                                           ),
-                                          BoldText(text: 'ThanksGiving',
+                                          BoldText(
+                                            text: 'ThanksGiving',
                                           )
                                         ],
                                       ),
-
                                     ),
                                     Container(
                                       width: 150,
                                       height: 50,
-                                      color: const Color.fromRGBO(242, 250, 253, 1),
+                                      color: const Color.fromRGBO(
+                                          242, 250, 253, 1),
                                       child: const Row(
                                         children: [
                                           Padding(
-                                            padding: EdgeInsets.only(right: 10.0),
-                                            child: FaIcon(FontAwesomeIcons.handHoldingDollar),
+                                            padding:
+                                                EdgeInsets.only(right: 10.0),
+                                            child: FaIcon(FontAwesomeIcons
+                                                .handHoldingDollar),
                                           ),
                                           BoldText(text: 'Offering')
                                         ],
@@ -121,12 +134,15 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                                     Container(
                                       width: 150,
                                       height: 50,
-                                      color: const Color.fromRGBO(242, 250, 253, 1),
+                                      color: const Color.fromRGBO(
+                                          242, 250, 253, 1),
                                       child: const Row(
                                         children: [
                                           Padding(
-                                            padding: EdgeInsets.only(right: 10.0),
-                                            child: FaIcon(FontAwesomeIcons.envelopeOpen),
+                                            padding:
+                                                EdgeInsets.only(right: 10.0),
+                                            child: FaIcon(
+                                                FontAwesomeIcons.envelopeOpen),
                                           ),
                                           BoldText(text: 'Tithe')
                                         ],
@@ -135,12 +151,15 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                                     Container(
                                       width: 150,
                                       height: 50,
-                                      color: const Color.fromRGBO(242, 250, 253, 1),
+                                      color: const Color.fromRGBO(
+                                          242, 250, 253, 1),
                                       child: const Row(
                                         children: [
                                           Padding(
-                                            padding: EdgeInsets.only(right: 8.0),
-                                            child: FaIcon(FontAwesomeIcons.circleInfo),
+                                            padding:
+                                                EdgeInsets.only(right: 8.0),
+                                            child: FaIcon(
+                                                FontAwesomeIcons.circleInfo),
                                           ),
                                           BoldText(text: 'Miscellaneous')
                                         ],
@@ -164,9 +183,10 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                             ),
                             SizedBox(
                               height: 50,
-                              width: MediaQuery.of(context).size.width * 3/4,
+                              width: MediaQuery.of(context).size.width * 3 / 4,
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   SizedBox(
@@ -182,7 +202,8 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                                                 color: Colors.grey,
                                                 shape: BoxShape.circle,
                                               ),
-                                              child: const Icon(Icons.account_circle),
+                                              child: const Icon(
+                                                  Icons.account_circle),
                                             ),
                                             Positioned(
                                               left: 15,
@@ -193,7 +214,8 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                                                   color: Colors.grey,
                                                   shape: BoxShape.circle,
                                                 ),
-                                                child: const Icon(Icons.supervisor_account),
+                                                child: const Icon(
+                                                    Icons.supervisor_account),
                                               ),
                                             ),
                                           ],
@@ -201,19 +223,28 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                                         const Padding(
                                           padding: EdgeInsets.only(left: 10.0),
                                           child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
                                             children: [
                                               Row(
                                                 children: [
-                                                  BoldText(text: 'Morning Service'),
-                                                  BoldText(text: ' .in-progress', fontWeight: FontWeight.normal,)
+                                                  BoldText(
+                                                      text: 'Morning Service'),
+                                                  BoldText(
+                                                    text: ' .in-progress',
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                  )
                                                 ],
                                               ),
                                               Row(
                                                 children: [
-                                                  BoldText(text: 'Lead Pastor: '),
-                                                  BoldText(text: 'Peter Griffin')
+                                                  BoldText(
+                                                      text: 'Lead Pastor: '),
+                                                  BoldText(
+                                                      text: 'Peter Griffin')
                                                 ],
                                               )
                                             ],
@@ -223,10 +254,9 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                                     ),
                                   ),
                                   const SizedBox(
-                                    child: Text('2h ago',
-                                      style: TextStyle(
-                                          color: Colors.blueGrey
-                                      ),
+                                    child: Text(
+                                      '2h ago',
+                                      style: TextStyle(color: Colors.blueGrey),
                                     ),
                                   )
                                 ],
@@ -246,35 +276,50 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                   children: [
                     SizedBox(
                       height: 200,
-                      width: MediaQuery.of(context).size.width * 1/4,
+                      width: MediaQuery.of(context).size.width * 1 / 4,
                       child: Column(
                         children: [
                           SizedBox(
                             height: 150,
                             child: Column(
                               children: [
-                                const BoldText(text: 'Ksh: 0.00', fontSize: 30.0, fontWeight: FontWeight.w900,),
+                                const BoldText(
+                                  text: 'Ksh: 0.00',
+                                  fontSize: 30.0,
+                                  fontWeight: FontWeight.w900,
+                                ),
                                 Expanded(
                                   child: SizedBox(
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
                                       children: [
                                         const SizedBox(
                                           child: Column(
                                             children: [
-                                              FaIcon(FontAwesomeIcons.moneyBillTrendUp),
+                                              FaIcon(FontAwesomeIcons
+                                                  .moneyBillTrendUp),
                                               BoldText(text: 'Expenses')
                                             ],
                                           ),
                                         ),
                                         GestureDetector(
-                                          onTap: (){
-                                            Navigator.push(context, MaterialPageRoute(builder: (context) => const PaymentResponsiveLayout(mobileLayout: PaymentMobiLayout(), desktopLayout: PaymentDesktopLayout())));
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const PaymentResponsiveLayout(
+                                                            mobileLayout:
+                                                                PaymentMobiLayout(),
+                                                            desktopLayout:
+                                                                PaymentDesktopLayout())));
                                           },
                                           child: const SizedBox(
                                             child: Column(
                                               children: [
-                                                FaIcon(FontAwesomeIcons.moneyBillTransfer),
+                                                FaIcon(FontAwesomeIcons
+                                                    .moneyBillTransfer),
                                                 BoldText(text: 'Top-Up')
                                               ],
                                             ),
@@ -296,18 +341,22 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                                           shape: BoxShape.circle,
                                         ),
                                         child: const Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
                                           children: [
                                             Icon(Icons.calendar_month_outlined),
                                           ],
                                         ),
                                       ),
                                       const Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           BoldText(text: '24 Jan 2024'),
-                                          BoldText(text: '18% more than last month'),
+                                          BoldText(
+                                              text: '18% more than last month'),
                                         ],
                                       ),
                                     ],
@@ -321,7 +370,7 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                     ),
                     SizedBox(
                       height: 300,
-                      width: MediaQuery.of(context).size.width * 1/4,
+                      width: MediaQuery.of(context).size.width * 1 / 4,
                       child: Column(
                         children: [
                           const SizedBox(
@@ -347,7 +396,8 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                                   height: 40,
                                   color: const Color.fromRGBO(242, 245, 253, 1),
                                   child: const Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       SizedBox(
                                         width: 100,
@@ -362,7 +412,8 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                                         width: 100,
                                         child: Row(
                                           children: [
-                                            Icon(Icons.access_time_filled_outlined),
+                                            Icon(Icons
+                                                .access_time_filled_outlined),
                                             BoldText(text: '10:15 AM')
                                           ],
                                         ),
@@ -371,19 +422,24 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                                   ),
                                 ),
                                 Container(
-                                    width: MediaQuery.of(context).size.width * 1/4,
+                                    width: MediaQuery.of(context).size.width *
+                                        1 /
+                                        4,
                                     height: 100,
-                                    color: const Color.fromRGBO(242, 250, 253, 1),
+                                    color:
+                                        const Color.fromRGBO(242, 250, 253, 1),
                                     child: const Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        Text('Leadership Summit 2024',
+                                        Text(
+                                          'Leadership Summit 2024',
                                           style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold
-                                          ),
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold),
                                         ),
-                                        Text('Lorem ipsum dolor sit amet conjecture anglicising elite. Maxime Lolita dolor sit amet conjecture anglicising',
+                                        Text(
+                                          'Lorem ipsum dolor sit amet conjecture anglicising elite. Maxime Lolita dolor sit amet conjecture anglicising',
                                           maxLines: 3,
                                           style: TextStyle(
                                             overflow: TextOverflow.ellipsis,
@@ -391,8 +447,7 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                                         ),
                                         // BoldText(text: 'Lorem ipsum dolor sit amet conjecture anglicising elite. Maxime Lolita dolor sit amet conjecture anglicising')
                                       ],
-                                    )
-                                )
+                                    ))
                               ],
                             ),
                           )
@@ -403,8 +458,7 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                 ),
               ),
             ],
-          )
-      ),
+          )),
     );
   }
 }

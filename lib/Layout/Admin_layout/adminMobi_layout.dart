@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:sanctuarysend/Layout/Payment_layout/paymentDesktop_layout.dart';
+import 'package:sanctuarysend/Layout/Payment_layout/paymentMobi_layout.dart';
+import 'package:sanctuarysend/Responsive/payment_breakpoint.dart';
+import 'package:sanctuarysend/widgets/popup.dart';
 
 import '../../widgets/custom_bold_txt.dart';
 import '../../widgets/main_appbar.dart';
@@ -18,7 +22,9 @@ class _AdminState extends State<AdminMobiLayout> {
     return Scaffold(
       appBar: const CustomMainAppbar(),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){},
+        onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const PaymentResponsiveLayout(mobileLayout: PaymentMobiLayout(), desktopLayout: PaymentDesktopLayout())));
+        },
         child: const Icon(Icons.add),
       ),
       body: SingleChildScrollView(
@@ -103,16 +109,21 @@ class _AdminState extends State<AdminMobiLayout> {
                                         icon: const Icon(Icons.file_open_rounded),
                                       ),
                                     ),
-                                    Container(
-                                      width: 45,
-                                      height: 45,
-                                      decoration: const BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: Colors.grey
-                                      ),
-                                      child: const Center(
-                                        child: Icon(
-                                            Icons.app_registration
+                                    GestureDetector(
+                                      onTap: (){
+                                        _showPopup(context);
+                                      },
+                                      child: Container(
+                                        width: 45,
+                                        height: 45,
+                                        decoration: const BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.grey
+                                        ),
+                                        child: const Center(
+                                          child: Icon(
+                                              Icons.app_registration
+                                          ),
                                         ),
                                       ),
                                     )
@@ -326,5 +337,12 @@ class _AdminState extends State<AdminMobiLayout> {
         ),
       ),
     );
+  }
+  void _showPopup(BuildContext context) {
+    showDialog(context: context,
+        builder: (BuildContext context) {
+      return const CustomPopupDialog();
+        }
+        );
   }
 }

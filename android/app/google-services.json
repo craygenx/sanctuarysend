@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "550624213594",
+    "project_id": "sanctuarysend",
+    "storage_bucket": "sanctuarysend.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:550624213594:android:e2efdbe481b22b6c95b663",
+        "android_client_info": {
+          "package_name": "com.example.sanctuarysend"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgMZsWe-JdwPlzh9O7610PMWe2qd-5dHo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,11 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:sanctuarysend/Layout/Payment_layout/paymentDesktop_layout.dart';
 import 'package:sanctuarysend/Layout/Payment_layout/paymentMobi_layout.dart';
 import 'package:sanctuarysend/Responsive/payment_breakpoint.dart';
 
 import '../../widgets/custom_bold_txt.dart';
 import '../../widgets/main_appbar.dart';
+import '../../widgets/syncfusionCharts.dart';
 
 class AdminDesktopLayout extends StatefulWidget {
   const AdminDesktopLayout({super.key});
@@ -15,6 +18,39 @@ class AdminDesktopLayout extends StatefulWidget {
 }
 
 class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
+  String fDate = '';
+  double balance = 0.0;
+  final CollectionReference archiveBalance = FirebaseFirestore.instance.collection('balance');
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    timeFormat();
+    _fetchBalance();
+  }
+
+  void timeFormat(){
+
+    DateTime date = DateTime.now();
+    String formattedDate = DateFormat('dd MMM yyyy').format(date);
+
+    setState(() {
+      fDate = formattedDate;
+    });
+  }
+
+  void _fetchBalance() async{
+    try {
+      var balanceSnapshot = await archiveBalance.doc('balID').get();
+      var data = balanceSnapshot.data() as Map<String, dynamic>;
+      setState(() {
+        balance = double.tryParse(data['newBalance']) ?? 0.0;
+      });
+    }catch (e) {
+      print(e);
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,9 +70,35 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                       child: Container(
                         height: MediaQuery.of(context).size.height * 0.6,
                         color: Colors.white,
-                        child: Image.asset(
-                          'assets/pie.jpg',
-                          fit: BoxFit.cover,
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 3/4,
+                              height: MediaQuery.of(context).size.height * 0.6,
+                              child: const SyncfusionCustomRadiusPieChart(),
+                            ),
+                            // SizedBox(
+                            //   width: MediaQuery.of(context).size.width * 1/4,
+                            //   height: MediaQuery.of(context).size.height * 0.6,
+                            //   child: Column(
+                            //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            //     children: [
+                            //       for (var category in SyncfusionCustomRadiusPieChartState.categories)
+                            //         Container(
+                            //           height: 40,
+                            //           width: 100,
+                            //           color: Colors.red,
+                            //           child: Column(
+                            //             children: [
+                            //               BoldText(text: category.key),
+                            //               BoldText(text: '${category.value}')
+                            //             ],
+                            //           ),
+                            //         ),
+                            //     ],
+                            //   ),
+                            // ),
+                          ],
                         ),
                       ),
                     ),
@@ -283,8 +345,8 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                             height: 150,
                             child: Column(
                               children: [
-                                const BoldText(
-                                  text: 'Ksh: 0.00',
+                                BoldText(
+                                  text: balance.toString(),
                                   fontSize: 30.0,
                                   fontWeight: FontWeight.w900,
                                 ),
@@ -313,7 +375,10 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                                                             mobileLayout:
                                                                 PaymentMobiLayout(),
                                                             desktopLayout:
-                                                                PaymentDesktopLayout())));
+                                                                PaymentDesktopLayout(),
+                                                        ),
+                                                ),
+                                            );
                                           },
                                           child: const SizedBox(
                                             child: Column(
@@ -348,14 +413,14 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                                           ],
                                         ),
                                       ),
-                                      const Column(
+                                      Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          BoldText(text: '24 Jan 2024'),
-                                          BoldText(
+                                          BoldText(text: fDate),
+                                          const BoldText(
                                               text: '18% more than last month'),
                                         ],
                                       ),
@@ -445,9 +510,9 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                                             overflow: TextOverflow.ellipsis,
                                           ),
                                         ),
-                                        // BoldText(text: 'Lorem ipsum dolor sit amet conjecture anglicising elite. Maxime Lolita dolor sit amet conjecture anglicising')
                                       ],
-                                    ))
+                                    ),
+                                ),
                               ],
                             ),
                           )

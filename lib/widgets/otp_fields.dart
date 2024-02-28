@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 
 class OtpFields extends StatefulWidget {
+  // final VoidCallback onLastFieldFilled;
   const OtpFields({super.key});
 
   @override
-  State<OtpFields> createState() => _OtpFieldsState();
+  State<OtpFields> createState() => OtpFieldsState();
 }
 
-class _OtpFieldsState extends State<OtpFields> {
+class OtpFieldsState extends State<OtpFields> {
   List<TextEditingController> controllers = List.generate(4, (index) => TextEditingController());
   List<FocusNode> focusNodes = List.generate(4, (index) => FocusNode());
+  static bool isComplete = false;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -33,6 +35,10 @@ class _OtpFieldsState extends State<OtpFields> {
             onChanged: (value){
               if (value.length == 1 && index < 3){
                 FocusScope.of(context).requestFocus(focusNodes[index + 1]);
+              }else if (index == 3 && value.length == 1) {
+                setState(() {
+                  isComplete = true;
+                });
               }
             },
             onTap: (){

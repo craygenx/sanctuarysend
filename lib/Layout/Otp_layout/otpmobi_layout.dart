@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:sanctuarysend/Layout/Admin_layout/adminDesktop_layout.dart';
 import 'package:sanctuarysend/Layout/Admin_layout/adminMobi_layout.dart';
@@ -16,6 +19,45 @@ class OtpScreenMobi extends StatefulWidget {
 
 class _OtpScreenState extends State<OtpScreenMobi> {
   bool isFocused = false;
+  bool isOtpComplete = false;
+  int _resendTimeout = 60; // seconds
+  late Timer _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    startTimer();
+  }
+
+  void startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_resendTimeout > 0) {
+        setState(() {
+          _resendTimeout--;
+        });
+      } else {
+        _timer.cancel(); // Stop the timer when it reaches 0
+      }
+    });
+  }
+
+  void resendOtp() {
+    setState(() {
+      _resendTimeout = 60;
+    });
+    startTimer();
+  }
+
+  bool otpComplete() {
+    return OtpFieldsState.isComplete;
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel(); // Cancel the timer to avoid memory leaks
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,7 +106,9 @@ class _OtpScreenState extends State<OtpScreenMobi> {
                             width: MediaQuery.of(context).size.width  * 3/4,
                             child: ElevatedButton(
                               onPressed: (){
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=>const AdminResponsiveLayout(mobileLayout: AdminMobiLayout(), desktopLayout: AdminDesktopLayout())));
+                                if(otpComplete()){
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const AdminResponsiveLayout(mobileLayout: AdminMobiLayout(), desktopLayout: AdminDesktopLayout())));
+                                }
                               },
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.deepPurpleAccent,
@@ -81,16 +125,22 @@ class _OtpScreenState extends State<OtpScreenMobi> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 15.0),
-                    child: RichText(text: const TextSpan(
+                    child: RichText(text: TextSpan(
                         text: 'Re-send code in ',
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 16.0,
                             color: Colors.black
                         ),
                         children: <TextSpan>[
                           TextSpan(
-                            text: '0:38',
-                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                            text: _resendTimeout == 0 ? 'Resend' : '$_resendTimeout s',
+                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                              if (_resendTimeout == 0) {
+                                resendOtp();
+                              }
+                              }
                           )
                         ]
                     )),

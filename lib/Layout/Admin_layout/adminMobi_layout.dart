@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:sanctuarysend/Layout/Payment_layout/paymentDesktop_layout.dart';
 import 'package:sanctuarysend/Layout/Payment_layout/paymentMobi_layout.dart';
 import 'package:sanctuarysend/Responsive/payment_breakpoint.dart';
@@ -7,6 +9,7 @@ import 'package:sanctuarysend/widgets/popup.dart';
 
 import '../../widgets/custom_bold_txt.dart';
 import '../../widgets/main_appbar.dart';
+import '../../widgets/syncfusionCharts.dart';
 
 class AdminMobiLayout extends StatefulWidget {
   const AdminMobiLayout({super.key});
@@ -16,9 +19,35 @@ class AdminMobiLayout extends StatefulWidget {
 }
 
 class _AdminState extends State<AdminMobiLayout> {
-  // TabController _tabController = TabController(length: 2, vsync: ScrollableState());
+
+  String fDate = '';
+  double balance = 0.0;
+  final CollectionReference archiveBalance = FirebaseFirestore.instance.collection('balance');
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    timeFormat();
+  }
+
+  // List<MapEntry<String, double>> categories(){
+  //   return SyncfusionCustomRadiusPieChartState.categories;
+  // }
+
+  void timeFormat(){
+
+    DateTime date = DateTime.now();
+    String formattedDate = DateFormat('dd MMM yyyy').format(date);
+
+    setState(() {
+      fDate = formattedDate;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: const CustomMainAppbar(),
       floatingActionButton: FloatingActionButton(
@@ -29,19 +58,22 @@ class _AdminState extends State<AdminMobiLayout> {
       ),
       body: SingleChildScrollView(
         child: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          // constraints: const BoxConstraints.expand(height: null),
-          // width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height * 1.1,
           child: Column(
             children: [
               Padding(
                 padding: const EdgeInsets.only(bottom: 10.0),
-                child: Container(
-                  color: Colors.grey,
+                child: SizedBox(
                   width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 1/4,
-                  child: Image.asset('assets/pie.jpg',
-                    fit: BoxFit.cover,
+                  height: MediaQuery.of(context).size.height * 1/3,
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height * 3/4,
+                        child: const SyncfusionCustomRadiusPieChart(),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -68,12 +100,12 @@ class _AdminState extends State<AdminMobiLayout> {
                             ],
                           ),
                         ),
-                        const Column(
+                        Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            BoldText(text: '24 Jan 2024'),
-                            BoldText(text: '18% more than last month'),
+                            BoldText(text: fDate),
+                            const BoldText(text: '18% more than last month'),
                           ],
                         ),
                       ],
@@ -341,7 +373,7 @@ class _AdminState extends State<AdminMobiLayout> {
   void _showPopup(BuildContext context) {
     showDialog(context: context,
         builder: (BuildContext context) {
-      return const CustomPopupDialog();
+      return CustomPopupDialog();
         }
         );
   }

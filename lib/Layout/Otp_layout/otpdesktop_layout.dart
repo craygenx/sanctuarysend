@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import '../../Responsive/admin_breakpoint.dart';
@@ -15,6 +18,52 @@ class OtpDesktop extends StatefulWidget {
 }
 
 class _OtpDesktopState extends State<OtpDesktop> {
+  bool isEmailValid = false;
+  int _resendTimeout = 60; // seconds
+  late Timer _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    startTimer();
+  }
+
+  void startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_resendTimeout > 0) {
+        setState(() {
+          _resendTimeout--;
+        });
+      } else {
+        _timer.cancel(); // Stop the timer when it reaches 0
+      }
+    });
+  }
+
+  void resendOtp() {
+    setState(() {
+      _resendTimeout = 60;
+    });
+    startTimer();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel(); // Cancel the timer to avoid memory leaks
+    super.dispose();
+  }
+
+  String? validateEmail(String value) {
+    final RegExp emailRegex =
+    RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+
+    if (!emailRegex.hasMatch(value)) {
+      return 'Enter a valid email address';
+    }
+
+    return 'null';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,20 +114,25 @@ class _OtpDesktopState extends State<OtpDesktop> {
                           SizedBox(
                             width: MediaQuery.of(context).size.width /2,
                             height: 100,
-                            child: const Row(
+                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Padding(
+                                const Padding(
                                   padding: EdgeInsets.only(right: 15),
                                   child: Icon(Icons.email),
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                                    padding: const EdgeInsets.only(left: 20.0, right: 20.0),
                                     child: SizedBox(
                                       width: 100,
-                                      child: TextField(
-                                        decoration: InputDecoration(
+                                      child: TextFormField(
+                                        onChanged: (value){
+                                          setState(() {
+                                            isEmailValid = validateEmail(value) == 'null';
+                                          });
+                                        },
+                                        decoration: const InputDecoration(
                                             hintText: 'JohnDoe@gmail.com',
                                             focusedBorder: UnderlineInputBorder(
                                                 borderSide: BorderSide(
@@ -91,8 +145,10 @@ class _OtpDesktopState extends State<OtpDesktop> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.only(left: 15.0),
-                                  child: Icon(Icons.verified_user),
+                                  padding: const EdgeInsets.only(left: 15.0),
+                                  child: Icon(Icons.verified_user,
+                                    color: isEmailValid ? Colors.green : Colors.red,
+                                  ),
                                 ),
                               ],
                             ),
@@ -133,16 +189,22 @@ class _OtpDesktopState extends State<OtpDesktop> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(top: 15.0),
-                                  child: RichText(text: const TextSpan(
+                                  child: RichText(text: TextSpan(
                                       text: 'Re-send code in ',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: 16.0,
                                           color: Colors.black
                                       ),
                                       children: <TextSpan>[
                                         TextSpan(
-                                          text: '0:38',
-                                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                          text: _resendTimeout == 0 ? 'Resend' : '$_resendTimeout s',
+                                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                            recognizer: TapGestureRecognizer()
+                                              ..onTap = () {
+                                                if (_resendTimeout == 0) {
+                                                  resendOtp();
+                                                }
+                                              }
                                         )
                                       ]
                                   )),

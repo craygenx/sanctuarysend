@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:sanctuarysend/Layout/Otp_layout/otpdesktop_layout.dart';
-import 'package:sanctuarysend/Layout/Otp_layout/otpmobi_layout.dart';
-import 'package:sanctuarysend/Responsive/otp_breakpoint.dart';
+import 'package:sanctuarysend/Firebase/auth_service.dart';
 
+import '../../Responsive/otp_breakpoint.dart';
 import '../../widgets/custom_bold_txt.dart';
 import '../../widgets/initial_appbar.dart';
+import '../Otp_layout/otpdesktop_layout.dart';
+import '../Otp_layout/otpmobi_layout.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -14,6 +15,24 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  TextEditingController mailController = TextEditingController();
+  AuthService authService = AuthService();
+  bool isEmailValid = false;
+
+  String? validateEmail(String value) {
+    // Define a regular expression for a valid email
+    final RegExp emailRegex =
+    RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+
+    // Check if the entered email matches the regex
+    if (!emailRegex.hasMatch(value)) {
+      return 'Enter a valid email address';
+    }
+
+    // Return null if the email is valid
+    return 'null';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +45,8 @@ class _SignInState extends State<SignIn> {
               child: SizedBox(
                   width: 200,
                   height: 200,
-                  child: Image.asset('assets/regra.jpg')),
+                  child: Image.asset('assets/regra.jpg'),
+              ),
             ),
             const Padding(
               padding: EdgeInsets.only(bottom: 15.0),
@@ -65,17 +85,25 @@ class _SignInState extends State<SignIn> {
                           ),
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 3 / 4,
-                            child: const TextField(
-                              decoration: InputDecoration(
+                            child: TextFormField(
+                              controller: mailController,
+                              onChanged: (value){
+                                setState(() {
+                                  isEmailValid = validateEmail(value) == 'null';
+                                });
+                              },
+                              decoration: const InputDecoration(
                                   hintText: 'JohnDoe@gmail.com',
                                   focusedBorder: UnderlineInputBorder(
                                       borderSide:
                                           BorderSide(color: Colors.black))),
                             ),
                           ),
-                          const Padding(
-                            padding: EdgeInsets.only(left: 8.0),
-                            child: Icon(Icons.verified_user),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Icon(Icons.verified_user,
+                              color: isEmailValid ? Colors.green : Colors.red,
+                            ),
                           ),
                         ],
                       ),
@@ -86,13 +114,19 @@ class _SignInState extends State<SignIn> {
                         width: MediaQuery.of(context).size.width * 3 / 4,
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const OtpResponsiveLayout(
-                                            mobileLayout: OtpScreenMobi(),
-                                            desktopLayout: OtpDesktop())));
+                            if (isEmailValid && mailController.text.isNotEmpty){
+                              // authService.sendEmail(mailController.text);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                      const OtpResponsiveLayout(
+                                          mobileLayout: OtpScreenMobi(),
+                                          desktopLayout: OtpDesktop(),
+                                      ),
+                                  ),
+                              );
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.deepPurpleAccent,
@@ -104,11 +138,11 @@ class _SignInState extends State<SignIn> {
                           ),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

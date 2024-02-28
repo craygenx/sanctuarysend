@@ -1,4 +1,4 @@
-FROM cirrusci/flutter:3.16 AS build
+FROM cirrusci/flutter:3.19.1 AS build
 WORKDIR /app
 COPY . .
 RUN flutter pub get

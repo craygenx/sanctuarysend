@@ -1,3 +1,4 @@
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:sanctuarysend/Firebase/auth_service.dart';
 
@@ -8,7 +9,8 @@ import '../Otp_layout/otpdesktop_layout.dart';
 import '../Otp_layout/otpmobi_layout.dart';
 
 class SignIn extends StatefulWidget {
-  const SignIn({super.key});
+  final FluroRouter router;
+  const SignIn({super.key, required this.router});
 
   @override
   State<SignIn> createState() => _SignInState();
@@ -114,19 +116,20 @@ class _SignInState extends State<SignIn> {
                         width: MediaQuery.of(context).size.width * 3 / 4,
                         child: ElevatedButton(
                           onPressed: () {
-                            if (isEmailValid && mailController.text.isNotEmpty){
-                              authService.sendEmail(mailController.text);
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                      OtpResponsiveLayout(
-                                          mobileLayout: OtpScreenMobi(email: mailController.text,),
-                                          desktopLayout: const OtpDesktop(),
-                                      ),
-                                  ),
-                              );
-                            }
+                            widget.router.navigateTo(context, '/registration/marshalldennis27@gmail.com');
+                            // if (isEmailValid && mailController.text.isNotEmpty){
+                            //   authService.sendEmail(mailController.text);
+                            //   Navigator.push(
+                            //       context,
+                            //       MaterialPageRoute(
+                            //           builder: (context) =>
+                            //           OtpResponsiveLayout(
+                            //               mobileLayout: OtpScreenMobi(email: mailController.text,),
+                            //               desktopLayout: const OtpDesktop(),
+                            //           ),
+                            //       ),
+                            //   );
+                            // }
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.deepPurpleAccent,

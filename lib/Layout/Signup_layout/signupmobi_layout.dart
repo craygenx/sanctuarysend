@@ -4,13 +4,14 @@ import '../../widgets/custom_bold_txt.dart';
 import '../../widgets/initial_appbar.dart';
 
 class SignUpMobi extends StatelessWidget {
-  const SignUpMobi({super.key});
+  final String email;
+  const SignUpMobi({super.key, required this.email});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppbar(),
-      body: SizedBox(
+      body: SingleChildScrollView(
         child: Column(
           children: [
             Padding(
@@ -53,9 +54,23 @@ class SignUpMobi extends StatelessWidget {
                           crossAxisCount: 2,
                           crossAxisSpacing: 16.0,
                           mainAxisSpacing: 1.0,
-                          children: const [
+                          children: [
                             SizedBox(
-                              height: 50,
+                              height: 30,
+                              child: TextField(
+                                readOnly: true,
+                                controller: TextEditingController(text: email),
+                                decoration: const InputDecoration(
+                                    focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.black
+                                        )
+                                    )
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 30,
                               child: TextField(
                                 decoration: InputDecoration(
                                     hintText: 'JohnDoe@gmail.com',
@@ -68,7 +83,7 @@ class SignUpMobi extends StatelessWidget {
                               ),
                             ),
                             SizedBox(
-                              height: 50,
+                              height: 30,
                               child: TextField(
                                 decoration: InputDecoration(
                                     hintText: 'JohnDoe@gmail.com',
@@ -81,20 +96,7 @@ class SignUpMobi extends StatelessWidget {
                               ),
                             ),
                             SizedBox(
-                              height: 50,
-                              child: TextField(
-                                decoration: InputDecoration(
-                                    hintText: 'JohnDoe@gmail.com',
-                                    focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.black
-                                        )
-                                    )
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 50,
+                              height: 30,
                               child: TextField(
                                 decoration: InputDecoration(
                                     hintText: 'JohnDoe@gmail.com',

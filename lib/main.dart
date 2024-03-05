@@ -1,8 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sanctuarysend/Layout/Otp_layout/otpdesktop_layout.dart';
+import 'package:sanctuarysend/Layout/Signup_layout/signupdesktop_layout.dart';
+import 'package:sanctuarysend/Layout/Signup_layout/signupmobi_layout.dart';
 import 'package:sanctuarysend/Responsive/signin_breakpoint.dart';
+import 'package:sanctuarysend/Responsive/signup_breakpoint.dart';
 
 import 'Firebase/deeplink_handler.dart';
 import 'Layout/Signin_layout/signinmobi_layout.dart';
@@ -26,17 +30,29 @@ void main() async {
   // await Firebase.initializeApp();
 
   // FirebaseFunctions.instance.useFunctionsEmulator('localhost', 5001);
-  runApp(const MyApp());
+  runApp(MyApp());
   initUniLinks();
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final router = FluroRouter();
+  MyApp({super.key}){
+    router.define('/signin', handler: Handler(handlerFunc: (_, __) => SigninResponsiveLayout(
+      mobileLayout: SignIn(router: router,),
+      desktopLayout: const OtpDesktop(),
+    )));
+    router.define('/registration/:email', handler: Handler(handlerFunc: (_, params) {
+      String email = params['email']?[0] ?? '';
+      return SignupResponsiveLayout(mobileLayout: SignUpMobi(email: email), desktopLayout:
+      const SignUpDesktop());
+    }));
+  }
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      onGenerateRoute: router.generator,
       title: 'SanctuarySend',
       theme: ThemeData(
         fontFamily: 'montserrat',
@@ -44,9 +60,9 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: const SigninResponsiveLayout(
-        mobileLayout: SignIn(),
-        desktopLayout: OtpDesktop(),
+      home: SigninResponsiveLayout(
+        mobileLayout: SignIn(router: router,),
+        desktopLayout: const OtpDesktop(),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sanctuarysend/widgets/registration_popup.dart';
 
 class CustomMainAppbar extends StatefulWidget implements PreferredSizeWidget{
   const CustomMainAppbar({super.key});
@@ -12,6 +13,14 @@ class CustomMainAppbar extends StatefulWidget implements PreferredSizeWidget{
 }
 
 class _AppbarState extends State<CustomMainAppbar> {
+
+  void _showRegistrationPopup(BuildContext context) {
+    showDialog(context: context,
+        builder: (BuildContext context) {
+          return RegistrationPopupDialog();
+        }
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,8 +35,10 @@ class _AppbarState extends State<CustomMainAppbar> {
         ),
         actions: [
           IconButton(
-              onPressed: (){},
-              icon: const Icon(Icons.account_circle_sharp))
+              onPressed: (){
+                _showRegistrationPopup(context);
+              },
+              icon: const Icon(Icons.person_add_alt_1))
         ],
       ),
     );

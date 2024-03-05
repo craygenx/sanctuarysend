@@ -4,9 +4,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:sanctuarysend/Layout/Payment_layout/paymentDesktop_layout.dart';
 import 'package:sanctuarysend/Layout/Payment_layout/paymentMobi_layout.dart';
+import 'package:sanctuarysend/Layout/pdf_docs_layout/pdf_desktop_layout.dart';
+import 'package:sanctuarysend/Layout/pdf_docs_layout/pdf_mobile_doc.dart';
 import 'package:sanctuarysend/Responsive/payment_breakpoint.dart';
 import 'package:sanctuarysend/widgets/popup.dart';
 
+import '../../Responsive/pdf_docs_breakpoint.dart';
 import '../../widgets/custom_bold_txt.dart';
 import '../../widgets/main_appbar.dart';
 import '../../widgets/syncfusionCharts.dart';
@@ -31,9 +34,6 @@ class _AdminState extends State<AdminMobiLayout> {
     timeFormat();
   }
 
-  // List<MapEntry<String, double>> categories(){
-  //   return SyncfusionCustomRadiusPieChartState.categories;
-  // }
 
   void timeFormat(){
 
@@ -137,7 +137,9 @@ class _AdminState extends State<AdminMobiLayout> {
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.only(right: 15.0),
-                                      child: IconButton(onPressed: (){},
+                                      child: IconButton(onPressed: (){
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => const PdfDocResponsiveLayout(mobileLayout: PdfMobiLayout(), desktopLayout: PdfDocDesktopLayout(),)));
+                                      },
                                         icon: const Icon(Icons.file_open_rounded),
                                       ),
                                     ),

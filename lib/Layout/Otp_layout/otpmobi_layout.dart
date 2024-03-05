@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:sanctuarysend/Firebase/auth_service.dart';
 import 'package:sanctuarysend/Layout/Admin_layout/adminDesktop_layout.dart';
 import 'package:sanctuarysend/Layout/Admin_layout/adminMobi_layout.dart';
 import 'package:sanctuarysend/Responsive/admin_breakpoint.dart';
@@ -11,13 +12,16 @@ import '../../widgets/initial_appbar.dart';
 import '../../widgets/otp_fields.dart';
 
 class OtpScreenMobi extends StatefulWidget {
-  const OtpScreenMobi({super.key});
+  final String email;
+  const OtpScreenMobi({super.key, required this.email});
 
   @override
   State<OtpScreenMobi> createState() => _OtpScreenState();
 }
 
 class _OtpScreenState extends State<OtpScreenMobi> {
+  AuthService authService = AuthService();
+  OtpFields otpFields = const OtpFields();
   bool isFocused = false;
   bool isOtpComplete = false;
   int _resendTimeout = 60; // seconds
@@ -107,7 +111,12 @@ class _OtpScreenState extends State<OtpScreenMobi> {
                             child: ElevatedButton(
                               onPressed: (){
                                 if(otpComplete()){
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const AdminResponsiveLayout(mobileLayout: AdminMobiLayout(), desktopLayout: AdminDesktopLayout())));
+                                  String mergedOtp = '';
+                                  for (TextEditingController controller in OtpFieldsState.controllers) {
+                                    mergedOtp += controller.text;
+                                  }
+                                  authService.verifyOtp(widget.email, mergedOtp);
+                                  // Navigator.push(context, MaterialPageRoute(builder: (context)=>const AdminResponsiveLayout(mobileLayout: AdminMobiLayout(), desktopLayout: AdminDesktopLayout())));
                                 }
                               },
                               style: ElevatedButton.styleFrom(

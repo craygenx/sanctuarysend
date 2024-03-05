@@ -115,14 +115,14 @@ class _SignInState extends State<SignIn> {
                         child: ElevatedButton(
                           onPressed: () {
                             if (isEmailValid && mailController.text.isNotEmpty){
-                              // authService.sendEmail(mailController.text);
+                              authService.sendEmail(mailController.text);
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                      const OtpResponsiveLayout(
-                                          mobileLayout: OtpScreenMobi(),
-                                          desktopLayout: OtpDesktop(),
+                                      OtpResponsiveLayout(
+                                          mobileLayout: OtpScreenMobi(email: mailController.text,),
+                                          desktopLayout: const OtpDesktop(),
                                       ),
                                   ),
                               );

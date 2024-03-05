@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sanctuarysend/Layout/Otp_layout/otpdesktop_layout.dart';
 import 'package:sanctuarysend/Responsive/signin_breakpoint.dart';
 
+import 'Firebase/deeplink_handler.dart';
 import 'Layout/Signin_layout/signinmobi_layout.dart';
 
 void main() async {
@@ -26,6 +27,7 @@ void main() async {
 
   // FirebaseFunctions.instance.useFunctionsEmulator('localhost', 5001);
   runApp(const MyApp());
+  initUniLinks();
 }
 
 class MyApp extends StatelessWidget {

@@ -9,7 +9,7 @@ class OtpFields extends StatefulWidget {
 }
 
 class OtpFieldsState extends State<OtpFields> {
-  List<TextEditingController> controllers = List.generate(4, (index) => TextEditingController());
+  static List<TextEditingController> controllers = List.generate(4, (index) => TextEditingController());
   List<FocusNode> focusNodes = List.generate(4, (index) => FocusNode());
   static bool isComplete = false;
   @override

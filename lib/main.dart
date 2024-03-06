@@ -8,7 +8,6 @@ import 'package:sanctuarysend/Layout/Signup_layout/signupmobi_layout.dart';
 import 'package:sanctuarysend/Responsive/signin_breakpoint.dart';
 import 'package:sanctuarysend/Responsive/signup_breakpoint.dart';
 
-import 'Firebase/deeplink_handler.dart';
 import 'Layout/Signin_layout/signinmobi_layout.dart';
 
 void main() async {
@@ -27,11 +26,8 @@ void main() async {
     await Firebase.initializeApp();
   }
 
-  // await Firebase.initializeApp();
 
-  // FirebaseFunctions.instance.useFunctionsEmulator('localhost', 5001);
   runApp(MyApp());
-  initUniLinks();
 }
 
 class MyApp extends StatelessWidget {
@@ -41,9 +37,10 @@ class MyApp extends StatelessWidget {
       mobileLayout: SignIn(router: router,),
       desktopLayout: const OtpDesktop(),
     )));
-    router.define('/registration/:email', handler: Handler(handlerFunc: (_, params) {
-      String email = params['email']?[0] ?? '';
-      return SignupResponsiveLayout(mobileLayout: SignUpMobi(email: email), desktopLayout:
+    router.define('/registration', handler: Handler(handlerFunc: (_, params) {
+      String email = params['email'] ? [0] ?? '';
+      String role = params['role'] ? [0] ?? '';
+      return SignupResponsiveLayout(mobileLayout: SignUpMobi(email: email, role: role,), desktopLayout:
       const SignUpDesktop());
     }));
   }

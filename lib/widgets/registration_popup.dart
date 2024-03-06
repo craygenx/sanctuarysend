@@ -4,9 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:uuid/uuid.dart';
 
-class RegistrationPopupDialog extends StatelessWidget {
-  RegistrationPopupDialog({super.key});
+import 'custom_dropdown.dart';
+
+class RegistrationPopupDialog extends StatefulWidget {
+  const RegistrationPopupDialog({super.key});
+
+  @override
+  State<RegistrationPopupDialog> createState() => _RegistrationPopupDialogState();
+}
+
+class _RegistrationPopupDialogState extends State<RegistrationPopupDialog> {
   final TextEditingController emailController = TextEditingController();
+
+  final List<String> categories = ['select role','Pastor', 'Accountant'];
+
+  String selectedCategory = '';
+
   final uuid = const Uuid();
 
   void sendEmail(String receiverEmail) async{
@@ -53,6 +66,16 @@ class RegistrationPopupDialog extends StatelessWidget {
                 decoration: const InputDecoration(
                   labelText: 'Enter Email',
                 )
+            ),
+            SizedBox(
+              child: CategoryDropdown(
+                categories: categories,
+                onChanged: (String value) {
+                  setState(() {
+                    selectedCategory = value;
+                  });
+                },
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(10.0),

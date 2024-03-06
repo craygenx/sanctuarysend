@@ -1,11 +1,19 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
+import '../../Firebase/registrationModel.dart';
 import '../../widgets/custom_bold_txt.dart';
 import '../../widgets/initial_appbar.dart';
 
 class SignUpMobi extends StatelessWidget {
   final String email;
-  const SignUpMobi({super.key, required this.email});
+  final String role;
+  final TextEditingController fNameController = TextEditingController();
+  final TextEditingController lNameController = TextEditingController();
+  final  uuid = const Uuid();
+
+  SignUpMobi({super.key, required this.email, required this.role});
 
   @override
   Widget build(BuildContext context) {
@@ -49,64 +57,89 @@ class SignUpMobi extends StatelessWidget {
                         // padding: const EdgeInsets.all(16.0),
                         width: MediaQuery.of(context).size.width,
                         height: 150,
-                        child: GridView.count(
-                          shrinkWrap: true,
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 16.0,
-                          mainAxisSpacing: 1.0,
+                        child: Column(
                           children: [
-                            SizedBox(
-                              height: 30,
-                              child: TextField(
-                                readOnly: true,
-                                controller: TextEditingController(text: email),
-                                decoration: const InputDecoration(
-                                    focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.black
-                                        )
-                                    )
+                            const Row(
+                              children: [
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(top: 8.0, bottom: 15, right: 4.0),
+                                    child: SizedBox(
+                                      height: 50,
+                                      child: TextField(
+                                        decoration: InputDecoration(
+                                          hintText: 'LastName',
+                                            focusedBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.black
+                                                )
+                                            )
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              ),
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(top: 8.0, bottom: 15.0, left: 4.0),
+                                    child: SizedBox(
+                                      height: 50,
+                                      child: TextField(
+                                        decoration: InputDecoration(
+                                            hintText: 'FirstName',
+                                            focusedBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.black
+                                                )
+                                            )
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                            SizedBox(
-                              height: 30,
-                              child: TextField(
-                                decoration: InputDecoration(
-                                    hintText: 'JohnDoe@gmail.com',
-                                    focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.black
-                                        )
-                                    )
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(right: 4.0),
+                                    child: SizedBox(
+                                      height: 50,
+                                      child: TextField(
+                                        readOnly: true,
+                                        controller: TextEditingController(text: email),
+                                        decoration: const InputDecoration(
+                                            focusedBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.black
+                                                )
+                                            )
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 30,
-                              child: TextField(
-                                decoration: InputDecoration(
-                                    hintText: 'JohnDoe@gmail.com',
-                                    focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.black
-                                        )
-                                    )
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 4.0),
+                                    child: SizedBox(
+                                      height: 50,
+                                      child: TextField(
+                                        readOnly: true,
+                                        controller: TextEditingController(text: role),
+                                        decoration: const InputDecoration(
+                                            focusedBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.black
+                                                )
+                                            )
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 30,
-                              child: TextField(
-                                decoration: InputDecoration(
-                                    hintText: 'JohnDoe@gmail.com',
-                                    focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.black
-                                        )
-                                    )
-                                ),
-                              ),
+                              ],
                             ),
                           ],
                         ),
@@ -115,14 +148,17 @@ class SignUpMobi extends StatelessWidget {
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 3/4,
                       child: ElevatedButton(
-                        onPressed: (){},
+                        onPressed: () async{
+                          RegistrationModel registrationModel = RegistrationModel(fName: fNameController.text, lName: lNameController.text, email: email, role: role, createdAt: DateTime.now());
+                          await FirebaseFirestore.instance.collection('payments').doc(uuid.v1()).set(registrationModel.toMap());
+                        },
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.deepPurpleAccent,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20.0)
                             )
                         ),
-                        child: const BoldText(text: 'SEND OTP', fontSize: 18.0,),
+                        child: const BoldText(text: 'REGISTER', fontSize: 18.0,),
                       ),
                     )
                   ],

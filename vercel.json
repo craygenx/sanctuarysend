@@ -4,7 +4,7 @@
     {
       "src": "/",
       "status": 301,
-      "headers": { "Location": "/registration" }
+      "headers": { "Location": "/registration/:email:role" }
     }
   ],
   "rewrites": [

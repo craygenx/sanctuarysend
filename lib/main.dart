@@ -57,10 +57,19 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: SigninResponsiveLayout(
-        mobileLayout: SignIn(router: router,),
-        desktopLayout: const OtpDesktop(),
-      ),
+      initialRoute: '/signin',
+      onGenerateInitialRoutes: (String initialRoute) {
+        return [MaterialPageRoute(
+          settings: const RouteSettings(name: '/signin'),
+          builder: (BuildContext context){
+            return SigninResponsiveLayout(
+              mobileLayout: SignIn(router: router,),
+              desktopLayout: const OtpDesktop(),
+            );
+          },
+        ),
+        ];
+      },
     );
   }
 }

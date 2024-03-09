@@ -2,8 +2,12 @@
   "version": 2,
   "rewrites": [
     {
-      "source": "/assets/(.*)",
-      "destination": "/assets/(.*)"
+      "source": "/assets/(*)",
+      "destination": "/assets/"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }

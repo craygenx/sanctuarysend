@@ -116,7 +116,7 @@ class _OtpScreenState extends State<OtpScreenMobi> {
                                     mergedOtp += controller.text;
                                   }
                                   authService.verifyOtp(widget.email, mergedOtp);
-                                  // Navigator.push(context, MaterialPageRoute(builder: (context)=>const AdminResponsiveLayout(mobileLayout: AdminMobiLayout(), desktopLayout: AdminDesktopLayout())));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const AdminResponsiveLayout(mobileLayout: AdminMobiLayout(), desktopLayout: AdminDesktopLayout())));
                                 }
                               },
                               style: ElevatedButton.styleFrom(

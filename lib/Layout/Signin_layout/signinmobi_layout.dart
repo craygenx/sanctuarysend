@@ -117,19 +117,29 @@ class _SignInState extends State<SignIn> {
                         child: ElevatedButton(
                           onPressed: () {
                             // widget.router.navigateTo(context, '/registration?email=marshalldennis27@gmail.com&role=pastor');
-                            if (isEmailValid && mailController.text.isNotEmpty){
-                              authService.sendEmail(mailController.text);
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                      OtpResponsiveLayout(
-                                          mobileLayout: OtpScreenMobi(email: mailController.text,),
-                                          desktopLayout: const OtpDesktop(),
+                            // if (isEmailValid && mailController.text.isNotEmpty){
+                            //   authService.sendEmail(mailController.text);
+                            //   Navigator.push(
+                            //       context,
+                            //       MaterialPageRoute(
+                            //           builder: (context) =>
+                            //           OtpResponsiveLayout(
+                            //               mobileLayout: OtpScreenMobi(email: mailController.text,),
+                            //               desktopLayout: const OtpDesktop(),
+                            //           ),
+                            //       ),
+                            //   );
+                            // }
+                            Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                          OtpResponsiveLayout(
+                                              mobileLayout: OtpScreenMobi(email: mailController.text,),
+                                              desktopLayout: const OtpDesktop(),
+                                          ),
                                       ),
-                                  ),
-                              );
-                            }
+                                  );
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.deepPurpleAccent,

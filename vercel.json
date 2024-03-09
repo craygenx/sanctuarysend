@@ -1,12 +1,5 @@
 {
   "version": 2,
-  "routes": [
-    {
-      "src": "/",
-      "status": 301,
-      "headers": { "Location": "/registration/:email:role" }
-    }
-  ],
   "rewrites": [
     {
       "source": "/assets/(.*)",

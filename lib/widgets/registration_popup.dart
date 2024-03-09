@@ -25,7 +25,7 @@ class _RegistrationPopupDialogState extends State<RegistrationPopupDialog> {
   void sendEmail(String receiverEmail) async{
 
     const String apiUrl = 'https://backendsystem-rjgw.onrender.com/send_deeplink';
-    String deepLink = "sanctuarysend://registration?email=$receiverEmail";
+    String deepLink = "https://sanctuarysend-craygenxs-projects.vercel.app/registration?email=$receiverEmail&role=$selectedCategory";
     final Map<String, String> headers = {
       'Content-Type': 'application/json',
     };

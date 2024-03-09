@@ -116,20 +116,20 @@ class _SignInState extends State<SignIn> {
                         width: MediaQuery.of(context).size.width * 3 / 4,
                         child: ElevatedButton(
                           onPressed: () {
-                            widget.router.navigateTo(context, '/registration?email=marshalldennis27@gmail.com&role=pastor');
-                            // if (isEmailValid && mailController.text.isNotEmpty){
-                            //   authService.sendEmail(mailController.text);
-                            //   Navigator.push(
-                            //       context,
-                            //       MaterialPageRoute(
-                            //           builder: (context) =>
-                            //           OtpResponsiveLayout(
-                            //               mobileLayout: OtpScreenMobi(email: mailController.text,),
-                            //               desktopLayout: const OtpDesktop(),
-                            //           ),
-                            //       ),
-                            //   );
-                            // }
+                            // widget.router.navigateTo(context, '/registration?email=marshalldennis27@gmail.com&role=pastor');
+                            if (isEmailValid && mailController.text.isNotEmpty){
+                              authService.sendEmail(mailController.text);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                      OtpResponsiveLayout(
+                                          mobileLayout: OtpScreenMobi(email: mailController.text,),
+                                          desktopLayout: const OtpDesktop(),
+                                      ),
+                                  ),
+                              );
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.deepPurpleAccent,

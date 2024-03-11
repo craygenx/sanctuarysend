@@ -34,7 +34,6 @@ class _AdminState extends State<AdminMobiLayout> {
     timeFormat();
   }
 
-
   void timeFormat(){
 
     DateTime date = DateTime.now();
@@ -354,7 +353,12 @@ class _AdminState extends State<AdminMobiLayout> {
                                         ],
                                       ),
                                     ),
-                                    const BoldText(text: 'Tab 2')
+                                    SizedBox(
+                                      height: 200,
+                                      child: Center(
+                                        child: Image.asset('assets/nodt.png'),
+                                      ),
+                                    )
                                   ],
                                 ),
                               )

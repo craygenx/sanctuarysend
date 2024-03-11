@@ -26,6 +26,7 @@ class _OtpScreenState extends State<OtpScreenMobi> {
   bool isOtpComplete = false;
   int _resendTimeout = 60; // seconds
   late Timer _timer;
+  bool isButtonDisabled = false;
 
   @override
   void initState() {
@@ -108,14 +109,25 @@ class _OtpScreenState extends State<OtpScreenMobi> {
                           padding: const EdgeInsets.only(top: 30.0),
                           child: SizedBox(
                             width: MediaQuery.of(context).size.width  * 3/4,
-                            child: ElevatedButton(
+                            child: isButtonDisabled ? const Center(
+                              child: SizedBox(
+                                  width: 35,
+                                  height: 35,
+                                  child: CircularProgressIndicator()),
+                            ) : ElevatedButton(
                               onPressed: (){
+                                setState(() {
+                                  isButtonDisabled = true;
+                                });
                                 if(otpComplete()){
                                   String mergedOtp = '';
                                   for (TextEditingController controller in OtpFieldsState.controllers) {
                                     mergedOtp += controller.text;
                                   }
                                   authService.verifyOtp(widget.email, mergedOtp);
+                                  setState(() {
+                                    isButtonDisabled = false;
+                                  });
                                   Navigator.push(context, MaterialPageRoute(builder: (context)=>const AdminResponsiveLayout(mobileLayout: AdminMobiLayout(), desktopLayout: AdminDesktopLayout())));
                                 }
                               },

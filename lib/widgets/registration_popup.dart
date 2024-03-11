@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
@@ -17,11 +18,13 @@ class RegistrationPopupDialog extends StatefulWidget {
 class _RegistrationPopupDialogState extends State<RegistrationPopupDialog> {
   final TextEditingController emailController = TextEditingController();
 
-  final List<String> categories = ['select role','Pastor', 'Accountant'];
+  final List<String> categories = ['Pastor', 'Accountant'];
 
   String selectedCategory = '';
 
   final uuid = const Uuid();
+
+  bool isButtonDisabled = false;
 
   void sendEmail(String receiverEmail) async{
 
@@ -89,24 +92,35 @@ class _RegistrationPopupDialogState extends State<RegistrationPopupDialog> {
                   labelText: 'Enter Email',
                 )
             ),
-            SizedBox(
-              child: CategoryDropdown(
-                categories: categories,
-                onChanged: (String value) {
-                  setState(() {
-                    selectedCategory = value;
-                  });
-                },
+            Expanded(
+              child: SizedBox(
+                child: CategoryDropdown(
+                  categories: categories,
+                  onChanged: (String value) {
+                    setState(() {
+                      selectedCategory = value;
+                    });
+                  },
+                ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: ElevatedButton(
                   onPressed: () async{
-                    sendEmail(emailController.text);
-                    Navigator.of(context).pop();
+                    setState(() {
+                      isButtonDisabled = true;
+                    });
+                    if(isButtonDisabled || selectedCategory == '' || emailController.text == ''){
+                    }else{
+                      sendEmail(emailController.text);
+                      setState(() {
+                        isButtonDisabled = false;
+                      });
+                      Navigator.of(context).pop();
+                    }
                   },
-                  child: const Text('Add'),
+                  child: isButtonDisabled ? const CircularProgressIndicator() : const Text('Add'),
               ),
             ),
           ],

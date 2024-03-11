@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sanctuarysend/Firebase/auth_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Responsive/otp_breakpoint.dart';
 import '../../widgets/custom_bold_txt.dart';
@@ -20,6 +23,8 @@ class _SignInState extends State<SignIn> {
   TextEditingController mailController = TextEditingController();
   AuthService authService = AuthService();
   bool isEmailValid = false;
+  bool isUserFound = false;
+  bool isButtonDisabled = false;
 
   String? validateEmail(String value) {
     // Define a regular expression for a valid email
@@ -34,6 +39,41 @@ class _SignInState extends State<SignIn> {
     // Return null if the email is valid
     return 'null';
   }
+
+  _saveToLocalStorage(String username) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('username', username);
+  }
+
+  void checkEmail(String email) async{
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .where('email', isEqualTo: email)
+        .get();
+
+    if(querySnapshot.docs.isNotEmpty){
+      for (QueryDocumentSnapshot doc in querySnapshot.docs){
+        String fName = doc['fName'];
+        String lName = doc['lName'];
+
+        _saveToLocalStorage('$fName $lName');
+        setState(() {
+          isUserFound = true;
+        });
+      }
+    }
+    else{
+      Fluttertoast.showToast(
+        msg: 'User not found!',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
+        backgroundColor: Colors.greenAccent,
+        textColor: Colors.black,
+        fontSize: 22.0,
+      );
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -114,32 +154,33 @@ class _SignInState extends State<SignIn> {
                       padding: const EdgeInsets.only(top: 30.0),
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 3 / 4,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            // widget.router.navigateTo(context, '/registration?email=marshalldennis27@gmail.com&role=pastor');
-                            // if (isEmailValid && mailController.text.isNotEmpty){
-                            //   authService.sendEmail(mailController.text);
-                            //   Navigator.push(
-                            //       context,
-                            //       MaterialPageRoute(
-                            //           builder: (context) =>
-                            //           OtpResponsiveLayout(
-                            //               mobileLayout: OtpScreenMobi(email: mailController.text,),
-                            //               desktopLayout: const OtpDesktop(),
-                            //           ),
-                            //       ),
-                            //   );
-                            // }
-                            Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                          OtpResponsiveLayout(
-                                              mobileLayout: OtpScreenMobi(email: mailController.text,),
-                                              desktopLayout: const OtpDesktop(),
-                                          ),
+                        child: isButtonDisabled ? const Center(
+                            child: SizedBox(
+                              width: 35,
+                                height: 35,
+                                child: CircularProgressIndicator()),
+                        ) : ElevatedButton(
+                          onPressed: () async {
+                            setState(() {
+                              isButtonDisabled = true;
+                            });
+                            checkEmail(mailController.text);
+                            if (isEmailValid && mailController.text.isNotEmpty && isUserFound){
+                              authService.sendEmail(mailController.text);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                      OtpResponsiveLayout(
+                                          mobileLayout: OtpScreenMobi(email: mailController.text,),
+                                          desktopLayout: const OtpDesktop(),
                                       ),
-                                  );
+                                  ),
+                              );
+                            }
+                            setState(() {
+                              isButtonDisabled = false;
+                            });
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.deepPurpleAccent,

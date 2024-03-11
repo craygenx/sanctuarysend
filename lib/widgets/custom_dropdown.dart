@@ -19,6 +19,8 @@ class CategoryDropdown extends StatelessWidget {
         onChanged: (String? newVal){
           onChanged(newVal!);
         },
+      isExpanded: true,
+      hint: const Text('Select an option'),
     );
   }
 }

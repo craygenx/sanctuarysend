@@ -4,7 +4,9 @@ import '../../widgets/custom_bold_txt.dart';
 import '../../widgets/initial_appbar.dart';
 
 class SignUpDesktop extends StatefulWidget {
-  const SignUpDesktop({super.key});
+  final String email;
+  final String role;
+  const SignUpDesktop({super.key, required this.email, required this.role});
 
   @override
   State<SignUpDesktop> createState() => _SignUpDesktopState();
@@ -69,63 +71,89 @@ class _SignUpDesktopState extends State<SignUpDesktop> {
                                   // padding: const EdgeInsets.all(16.0),
                                   width: MediaQuery.of(context).size.width,
                                   height: 150,
-                                  child: GridView.count(
-                                    shrinkWrap: true,
-                                    crossAxisCount: 2,
-                                    crossAxisSpacing: 16.0,
-                                    mainAxisSpacing: 1.0,
-                                    children: const [
-                                      SizedBox(
-                                        height: 50,
-                                        child: TextField(
-                                          decoration: InputDecoration(
-                                              hintText: 'JohnDoe@gmail.com',
-                                              focusedBorder: UnderlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: Colors.black
-                                                  )
-                                              )
+                                  child: Column(
+                                    children: [
+                                      const Row(
+                                        children: [
+                                          Expanded(
+                                            child: Padding(
+                                              padding: EdgeInsets.only(top: 8.0, bottom: 15, right: 4.0),
+                                              child: SizedBox(
+                                                height: 50,
+                                                child: TextField(
+                                                  decoration: InputDecoration(
+                                                      hintText: 'LastName',
+                                                      focusedBorder: UnderlineInputBorder(
+                                                          borderSide: BorderSide(
+                                                              color: Colors.black
+                                                          )
+                                                      )
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
                                           ),
-                                        ),
+                                          Expanded(
+                                            child: Padding(
+                                              padding: EdgeInsets.only(top: 8.0, bottom: 15.0, left: 4.0),
+                                              child: SizedBox(
+                                                height: 50,
+                                                child: TextField(
+                                                  decoration: InputDecoration(
+                                                      hintText: 'FirstName',
+                                                      focusedBorder: UnderlineInputBorder(
+                                                          borderSide: BorderSide(
+                                                              color: Colors.black
+                                                          )
+                                                      )
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      SizedBox(
-                                        height: 50,
-                                        child: TextField(
-                                          decoration: InputDecoration(
-                                              hintText: 'JohnDoe@gmail.com',
-                                              focusedBorder: UnderlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: Colors.black
-                                                  )
-                                              )
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(right: 4.0),
+                                              child: SizedBox(
+                                                height: 50,
+                                                child: TextField(
+                                                  readOnly: true,
+                                                  controller: TextEditingController(text: widget.email),
+                                                  decoration: const InputDecoration(
+                                                      focusedBorder: UnderlineInputBorder(
+                                                          borderSide: BorderSide(
+                                                              color: Colors.black
+                                                          )
+                                                      )
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 50,
-                                        child: TextField(
-                                          decoration: InputDecoration(
-                                              hintText: 'JohnDoe@gmail.com',
-                                              focusedBorder: UnderlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: Colors.black
-                                                  )
-                                              )
+                                          Expanded(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(left: 4.0),
+                                              child: SizedBox(
+                                                height: 50,
+                                                child: TextField(
+                                                  readOnly: true,
+                                                  controller: TextEditingController(text: widget.role),
+                                                  decoration: const InputDecoration(
+                                                      focusedBorder: UnderlineInputBorder(
+                                                          borderSide: BorderSide(
+                                                              color: Colors.black
+                                                          )
+                                                      )
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 50,
-                                        child: TextField(
-                                          decoration: InputDecoration(
-                                              hintText: 'JohnDoe@gmail.com',
-                                              focusedBorder: UnderlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: Colors.black
-                                                  )
-                                              )
-                                          ),
-                                        ),
+                                        ],
                                       ),
                                     ],
                                   ),

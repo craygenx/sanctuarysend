@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
       String email = params['email'] ? [0] ?? '';
       String role = params['role'] ? [0] ?? '';
       return SignupResponsiveLayout(mobileLayout: SignUpMobi(email: email, role: role,), desktopLayout:
-      const SignUpDesktop());
+      SignUpDesktop(email: email, role: role,));
     }));
   }
 

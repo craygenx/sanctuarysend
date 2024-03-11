@@ -1,7 +1,12 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:sanctuarysend/Firebase/auth_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Responsive/admin_breakpoint.dart';
 import '../../widgets/custom_bold_txt.dart';
@@ -21,11 +26,53 @@ class _OtpDesktopState extends State<OtpDesktop> {
   bool isEmailValid = false;
   int _resendTimeout = 60; // seconds
   late Timer _timer;
+  bool isOtpSent = false;
+  bool isUserFound = false;
+  bool isVerifying = false;
+  TextEditingController mailController = TextEditingController();
+  AuthService authService = AuthService();
 
   @override
   void initState() {
     super.initState();
-    startTimer();
+  }
+
+  _saveToLocalStorage(String username) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('username', username);
+  }
+
+  void checkEmail(String email) async{
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .where('email', isEqualTo: email)
+        .get();
+
+    if(querySnapshot.docs.isNotEmpty){
+      for (QueryDocumentSnapshot doc in querySnapshot.docs){
+        String fName = doc['fName'];
+        String lName = doc['lName'];
+
+        _saveToLocalStorage('$fName $lName');
+        setState(() {
+          isUserFound = true;
+        });
+      }
+    }
+    else{
+      Fluttertoast.showToast(
+        msg: 'User not found!',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
+        backgroundColor: Colors.greenAccent,
+        textColor: Colors.black,
+        fontSize: 22.0,
+      );
+    }
+  }
+
+  bool otpComplete() {
+    return OtpFieldsState.isComplete;
   }
 
   void startTimer() {
@@ -170,9 +217,16 @@ class _OtpDesktopState extends State<OtpDesktop> {
                                         padding: const EdgeInsets.only(top: 30.0),
                                         child: SizedBox(
                                           width: MediaQuery.of(context).size.width /4,
-                                          child: ElevatedButton(
+                                          child: isOtpSent ? ElevatedButton(
                                             onPressed: (){
-                                              Navigator.push(context, MaterialPageRoute(builder: (context)=>const AdminResponsiveLayout(mobileLayout: AdminMobiLayout(), desktopLayout: AdminDesktopLayout())));
+                                              if(otpComplete() && isVerifying == false){
+                                                String mergedOtp = '';
+                                                for (TextEditingController controller in OtpFieldsState.controllers) {
+                                                  mergedOtp += controller.text;
+                                                }
+                                                authService.verifyOtp(mailController.text, mergedOtp);
+                                                Navigator.push(context, MaterialPageRoute(builder: (context)=>const AdminResponsiveLayout(mobileLayout: AdminMobiLayout(), desktopLayout: AdminDesktopLayout())));
+                                              }
                                             },
                                             style: ElevatedButton.styleFrom(
                                                 backgroundColor: Colors.deepPurpleAccent,
@@ -181,6 +235,26 @@ class _OtpDesktopState extends State<OtpDesktop> {
                                                 )
                                             ),
                                             child: const BoldText(text: 'VERIFY', fontSize: 18.0,),
+                                          )
+                                              : ElevatedButton(
+                                            onPressed: () async {
+                                              checkEmail(mailController.text);
+                                              if (isEmailValid && mailController.text.isNotEmpty && isUserFound){
+                                                authService.sendEmail(mailController.text);
+                                                setState(() {
+                                                  isOtpSent = true;
+                                                });
+                                                startTimer();
+                                              }
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                                backgroundColor: Colors.deepPurpleAccent,
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(20.0))),
+                                            child: isVerifying ? const CircularProgressIndicator(): const BoldText(
+                                              text: 'SEND OTP',
+                                              fontSize: 18.0,
+                                            ),
                                           ),
                                         ),
                                       )

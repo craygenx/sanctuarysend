@@ -1,19 +1,31 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:sanctuarysend/Layout/Admin_layout/adminDesktop_layout.dart';
+import 'package:sanctuarysend/Layout/Admin_layout/adminMobi_layout.dart';
+import 'package:sanctuarysend/Responsive/admin_breakpoint.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../Firebase/registrationModel.dart';
 import '../../widgets/custom_bold_txt.dart';
 import '../../widgets/initial_appbar.dart';
 
-class SignUpMobi extends StatelessWidget {
+class SignUpMobi extends StatefulWidget {
   final String email;
   final String role;
-  final TextEditingController fNameController = TextEditingController();
-  final TextEditingController lNameController = TextEditingController();
-  final  uuid = const Uuid();
 
-  SignUpMobi({super.key, required this.email, required this.role});
+  const SignUpMobi({super.key, required this.email, required this.role});
+
+  @override
+  State<SignUpMobi> createState() => _SignUpMobiState();
+}
+
+class _SignUpMobiState extends State<SignUpMobi> {
+  final TextEditingController fNameController = TextEditingController();
+
+  final TextEditingController lNameController = TextEditingController();
+
+  final  uuid = const Uuid();
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +120,7 @@ class SignUpMobi extends StatelessWidget {
                                       height: 50,
                                       child: TextField(
                                         readOnly: true,
-                                        controller: TextEditingController(text: email),
+                                        controller: TextEditingController(text: widget.email),
                                         decoration: const InputDecoration(
                                             focusedBorder: UnderlineInputBorder(
                                                 borderSide: BorderSide(
@@ -127,7 +139,7 @@ class SignUpMobi extends StatelessWidget {
                                       height: 50,
                                       child: TextField(
                                         readOnly: true,
-                                        controller: TextEditingController(text: role),
+                                        controller: TextEditingController(text: widget.role),
                                         decoration: const InputDecoration(
                                             focusedBorder: UnderlineInputBorder(
                                                 borderSide: BorderSide(
@@ -149,8 +161,17 @@ class SignUpMobi extends StatelessWidget {
                       width: MediaQuery.of(context).size.width * 3/4,
                       child: ElevatedButton(
                         onPressed: () async{
-                          RegistrationModel registrationModel = RegistrationModel(fName: fNameController.text, lName: lNameController.text, email: email, role: role, createdAt: DateTime.now());
-                          await FirebaseFirestore.instance.collection('payments').doc(uuid.v1()).set(registrationModel.toMap());
+                          RegistrationModel registrationModel = RegistrationModel(fName: fNameController.text, lName: lNameController.text, email: widget.email, role: widget.role, createdAt: DateTime.now());
+                          await FirebaseFirestore.instance.collection('users').doc(uuid.v1()).set(registrationModel.toMap());
+                          Fluttertoast.showToast(
+                            msg: 'Registration successful',
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.TOP,
+                            backgroundColor: Colors.greenAccent,
+                            textColor: Colors.black,
+                            fontSize: 22.0,
+                          );
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const AdminResponsiveLayout(mobileLayout: AdminMobiLayout(), desktopLayout: AdminDesktopLayout())));
                         },
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.deepPurpleAccent,

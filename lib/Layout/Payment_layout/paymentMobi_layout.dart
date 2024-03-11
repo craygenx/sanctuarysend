@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sanctuarysend/Firebase/balanceModel.dart';
 import 'package:uuid/uuid.dart';
@@ -77,7 +78,14 @@ class _PaymentMobiLayoutState extends State<PaymentMobiLayout> {
         balance = double.tryParse(data['newBalance']) ?? 0.0;
       });
     }catch (e) {
-      print(e);
+      Fluttertoast.showToast(
+        msg: 'Error occurred',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
+        backgroundColor: Colors.greenAccent,
+        textColor: Colors.black,
+        fontSize: 22.0,
+      );
     }
   }
 

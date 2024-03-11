@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sanctuarysend/widgets/custom_bold_txt.dart';
 import 'package:uuid/uuid.dart';
@@ -77,7 +78,14 @@ class _PaymentDesktopLayoutState extends State<PaymentDesktopLayout> {
         balance = double.tryParse(data['newBalance']) ?? 0.0;
       });
     }catch (e) {
-      print(e);
+      Fluttertoast.showToast(
+        msg: 'Failed to fetch Balance',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
+        backgroundColor: Colors.greenAccent,
+        textColor: Colors.black,
+        fontSize: 22.0,
+      );
     }
   }
 

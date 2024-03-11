@@ -17,7 +17,7 @@ class _AppbarState extends State<CustomMainAppbar> {
   void _showRegistrationPopup(BuildContext context) {
     showDialog(context: context,
         builder: (BuildContext context) {
-          return RegistrationPopupDialog();
+          return const RegistrationPopupDialog();
         }
     );
   }

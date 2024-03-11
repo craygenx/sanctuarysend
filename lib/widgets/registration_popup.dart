@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:uuid/uuid.dart';
 
@@ -25,7 +26,7 @@ class _RegistrationPopupDialogState extends State<RegistrationPopupDialog> {
   void sendEmail(String receiverEmail) async{
 
     const String apiUrl = 'https://backendsystem-rjgw.onrender.com/send_deeplink';
-    String deepLink = "https://sanctuarysend-craygenxs-projects.vercel.app/registration?email=$receiverEmail&role=$selectedCategory";
+    String deepLink = "https://sanctuarysend.onrender.com/#/registration?email=$receiverEmail&role=$selectedCategory";
     final Map<String, String> headers = {
       'Content-Type': 'application/json',
     };
@@ -42,13 +43,34 @@ class _RegistrationPopupDialogState extends State<RegistrationPopupDialog> {
           body: jsonEncode(requestData)
       );
       if(response.statusCode == 200) {
-        print('successful');
         emailController.text = '';
+        Fluttertoast.showToast(
+          msg: 'Email sent successfully',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.TOP,
+          backgroundColor: Colors.greenAccent,
+          textColor: Colors.black,
+          fontSize: 22.0,
+        );
       }else{
-        print('failed');
+        Fluttertoast.showToast(
+          msg: 'Email sending failed',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.TOP,
+          backgroundColor: Colors.greenAccent,
+          textColor: Colors.black,
+          fontSize: 22.0,
+        );
       }
     }catch (e) {
-      print(e);
+      Fluttertoast.showToast(
+        msg: 'Error occurred',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
+        backgroundColor: Colors.greenAccent,
+        textColor: Colors.black,
+        fontSize: 22.0,
+      );
     }
   }
 
@@ -82,9 +104,11 @@ class _RegistrationPopupDialogState extends State<RegistrationPopupDialog> {
               child: ElevatedButton(
                   onPressed: () async{
                     sendEmail(emailController.text);
+                    Navigator.of(context).pop();
                   },
-                  child: const Text('Add')),
-            )
+                  child: const Text('Add'),
+              ),
+            ),
           ],
         ),
       ),

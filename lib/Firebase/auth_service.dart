@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_database/firebase_database.dart';
 
@@ -36,7 +38,15 @@ class AuthService {
         return null;
       }
     }catch (e){
-      print('failed to retrieve otp');
+      Fluttertoast.showToast(
+        msg: 'Failed to retrieve OTP',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
+        backgroundColor: Colors.greenAccent,
+        textColor: Colors.black,
+        fontSize: 22.0,
+      );
+
     }
     return null;
   }
@@ -45,9 +55,23 @@ class AuthService {
     String? storedOTP = await retrieveOTP(email);
 
     if (storedOTP != null && storedOTP == enteredOtp) {
-      print('authentication successful');
+      Fluttertoast.showToast(
+        msg: 'Authentication successfully',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
+        backgroundColor: Colors.greenAccent,
+        textColor: Colors.black,
+        fontSize: 22.0,
+      );
     }else{
-      print('OTP verification failed');
+      Fluttertoast.showToast(
+        msg: 'OTP verification failed',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
+        backgroundColor: Colors.greenAccent,
+        textColor: Colors.black,
+        fontSize: 22.0,
+      );
     }
   }
 
@@ -75,7 +99,14 @@ class AuthService {
         storeOTP(receiverEmail, otp);
       }
     }catch (e) {
-      print(e);
+      Fluttertoast.showToast(
+        msg: 'Email sent successfully',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
+        backgroundColor: Colors.greenAccent,
+        textColor: Colors.black,
+        fontSize: 22.0,
+      );
     }
   }
 }

@@ -281,7 +281,8 @@ class _OtpDesktopState extends State<OtpDesktop> {
                                               }
                                         )
                                       ]
-                                  )),
+                                  ),
+                                  ),
                                 )
                               ],
                             ),

@@ -127,3 +127,155 @@ class _PdfMobiLayoutState extends State<PdfMobiLayout> {
     );
   }
 }
+// import 'dart:io';
+//
+// import 'package:flutter/material.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:intl/intl.dart';
+// import 'package:path_provider/path_provider.dart';
+// import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+// import 'package:url_launcher/url_launcher.dart';
+//
+// class PdfMobiLayout extends StatefulWidget {
+//   const PdfMobiLayout({Key? key}) : super(key: key);
+//
+//   @override
+//   State<PdfMobiLayout> createState() => _PdfMobiLayoutState();
+// }
+//
+// class _PdfMobiLayoutState extends State<PdfMobiLayout> {
+//   late DateTime startDate;
+//   late DateTime endDate;
+//   PdfViewerController pdfViewerController = PdfViewerController();
+//   bool pdfGenerated = false;
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     startDate = DateTime(DateTime.now().year, DateTime.now().month, 1);
+//     endDate = DateTime.now();
+//   }
+//
+//   Future<void> _generatePDF() async {
+//     // Fetch data from Firebase
+//     QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore.instance
+//         .collection('votes')
+//         .where('timeSent', isGreaterThanOrEqualTo: Timestamp.fromDate(startDate))
+//         .where('timeSent', isLessThanOrEqualTo: Timestamp.fromDate(endDate))
+//         .get();
+//
+//     // Create PDF document
+//     final pdfDocument = PdfDocument();
+//
+//     // Add data to PDF
+//     for (QueryDocumentSnapshot<Map<String, dynamic>> document in querySnapshot.docs) {
+//       pdfDocument.addPage(PdfPage(
+//         build: (PdfContext context) => PdfTableHelper.fromTextArray(
+//           headers: ['Title', 'ACC No', 'Time Sent'],
+//           data: [
+//             [document['title'], document['accNumber'], _formatTimestamp(document['timeSent'])],
+//           ],
+//         ),
+//       ));
+//     }
+//
+//     // Save PDF to a temporary file
+//     final pdfBytes = await pdfDocument.save();
+//     final tempFilePath = await PdfDocumentUtils.saveFileToTemp(pdfBytes, 'example.pdf');
+//
+//     // Open the PDF using the default PDF viewer
+//     if (await canLaunch(tempFilePath)) {
+//       await launch(tempFilePath);
+//       setState(() {
+//         pdfGenerated = true;
+//       });
+//     } else {
+//       // Handle the case where the PDF viewer couldn't be launched
+//       // You can also consider displaying an error message to the user
+//     }
+//   }
+//
+//   String _formatTimestamp(Timestamp timestamp) {
+//     return DateFormat('yyyy-MM-dd HH:mm:ss').format(timestamp.toDate());
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: const Text('PDF Generator'),
+//       ),
+//       body: Column(
+//         children: [
+//           Row(
+//             children: [
+//               const Text('Start Date:'),
+//               const SizedBox(width: 10),
+//               ElevatedButton(
+//                 onPressed: () async {
+//                   DateTime? pickedDate = await showDatePicker(
+//                     context: context,
+//                     initialDate: startDate,
+//                     firstDate: DateTime(2000),
+//                     lastDate: DateTime.now(),
+//                   );
+//                   if (pickedDate != null && pickedDate != startDate) {
+//                     setState(() {
+//                       startDate = pickedDate;
+//                     });
+//                   }
+//                 },
+//                 child: Text(DateFormat('yyyy-MM-dd').format(startDate)),
+//               ),
+//             ],
+//           ),
+//           Row(
+//             children: [
+//               const Text('End Date:'),
+//               const SizedBox(width: 10),
+//               ElevatedButton(
+//                 onPressed: () async {
+//                   DateTime? pickedDate = await showDatePicker(
+//                     context: context,
+//                     initialDate: endDate,
+//                     firstDate: DateTime(2000),
+//                     lastDate: DateTime.now(),
+//                   );
+//                   if (pickedDate != null && pickedDate != endDate) {
+//                     setState(() {
+//                       endDate = pickedDate;
+//                     });
+//                   }
+//                 },
+//                 child: Text(DateFormat('yyyy-MM-dd').format(endDate)),
+//               ),
+//             ],
+//           ),
+//           const SizedBox(height: 20),
+//           ElevatedButton(
+//             onPressed: _generatePDF,
+//             child: const Text('Generate PDF'),
+//           ),
+//           if (pdfGenerated)
+//             Expanded(
+//               child: SfPdfViewer.file(
+//                 File(tempFilePath), // You may need to import 'dart:io' for this
+//                 controller: pdfViewerController,
+//               ),
+//             ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+//
+// class PdfDocumentUtils {
+//   static Future<String> saveFileToTemp(List<int> bytes, String fileName) async {
+//     final directory = await getTemporaryDirectory();
+//     final filePath = '${directory.path}/$fileName';
+//     final file = File(filePath);
+//     await file.writeAsBytes(bytes);
+//     return filePath;
+//   }
+// }
+

@@ -92,16 +92,15 @@ class _RegistrationPopupDialogState extends State<RegistrationPopupDialog> {
                   labelText: 'Enter Email',
                 )
             ),
-            Expanded(
-              child: SizedBox(
-                child: CategoryDropdown(
-                  categories: categories,
-                  onChanged: (String value) {
-                    setState(() {
-                      selectedCategory = value;
-                    });
-                  },
-                ),
+            SizedBox(
+              width: double.infinity,
+              child: CategoryDropdown(
+                categories: categories,
+                onChanged: (String value) {
+                  setState(() {
+                    selectedCategory = value;
+                  });
+                },
               ),
             ),
             Padding(
@@ -111,14 +110,19 @@ class _RegistrationPopupDialogState extends State<RegistrationPopupDialog> {
                     setState(() {
                       isButtonDisabled = true;
                     });
-                    if(isButtonDisabled || selectedCategory == '' || emailController.text == ''){
-                    }else{
-                      sendEmail(emailController.text);
-                      setState(() {
+                    sendEmail(emailController.text);
+                    setState(() {
                         isButtonDisabled = false;
-                      });
-                      Navigator.of(context).pop();
-                    }
+                    });
+                    Navigator.of(context).pop();
+                    // if(isButtonDisabled || selectedCategory == '' || emailController.text == ''){
+                    // }else{
+                    //   sendEmail(emailController.text);
+                    //   setState(() {
+                    //     isButtonDisabled = false;
+                    //   });
+                    //   Navigator.of(context).pop();
+                    // }
                   },
                   child: isButtonDisabled ? const CircularProgressIndicator() : const Text('Add'),
               ),

@@ -73,15 +73,16 @@ class _SignUpMobiState extends State<SignUpMobi> {
                         height: 150,
                         child: Column(
                           children: [
-                            const Row(
+                            Row(
                               children: [
                                 Expanded(
                                   child: Padding(
-                                    padding: EdgeInsets.only(top: 8.0, bottom: 15, right: 4.0),
+                                    padding: const EdgeInsets.only(top: 8.0, bottom: 15, right: 4.0),
                                     child: SizedBox(
                                       height: 50,
                                       child: TextField(
-                                        decoration: InputDecoration(
+                                        controller: lNameController,
+                                        decoration: const InputDecoration(
                                           hintText: 'LastName',
                                             focusedBorder: UnderlineInputBorder(
                                                 borderSide: BorderSide(
@@ -95,11 +96,12 @@ class _SignUpMobiState extends State<SignUpMobi> {
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: EdgeInsets.only(top: 8.0, bottom: 15.0, left: 4.0),
+                                    padding: const EdgeInsets.only(top: 8.0, bottom: 15.0, left: 4.0),
                                     child: SizedBox(
                                       height: 50,
                                       child: TextField(
-                                        decoration: InputDecoration(
+                                        controller: lNameController,
+                                        decoration: const InputDecoration(
                                             hintText: 'FirstName',
                                             focusedBorder: UnderlineInputBorder(
                                                 borderSide: BorderSide(

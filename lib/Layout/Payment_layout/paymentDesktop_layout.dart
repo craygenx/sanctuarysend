@@ -129,7 +129,7 @@ class _PaymentDesktopLayoutState extends State<PaymentDesktopLayout> {
                           child: SizedBox(
                             width: 300,
                             height: 300,
-                            child: Image.asset('assets/wallet1.png'),
+                            child: Image.network('https://backendsystem-rjgw.onrender.com/image/wallet1.jpg'),
                           ),
                         ),
                         Padding(

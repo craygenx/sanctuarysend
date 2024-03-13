@@ -41,7 +41,7 @@ class _SignUpMobiState extends State<SignUpMobi> {
               child: SizedBox(
                   height: 200,
                   width: 200,
-                  child: Image.asset('assets/regra.jpg')
+                  child: Image.network('https://backendsystem-rjgw.onrender.com/image/regra.jpg')
               ),
             ),
             const Padding(

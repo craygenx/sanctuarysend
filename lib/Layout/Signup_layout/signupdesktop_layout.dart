@@ -33,7 +33,7 @@ class _SignUpDesktopState extends State<SignUpDesktop> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 1/4,
                     height: MediaQuery.of(context).size.height * 1/4,
-                    child: Image.asset('assets/regra.jpg'),
+                    child: Image.network('https://backendsystem-rjgw.onrender.com/image/regra.jpg'),
                   ),
                 ],
               ),

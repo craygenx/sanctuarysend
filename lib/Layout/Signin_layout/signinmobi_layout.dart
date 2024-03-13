@@ -87,7 +87,7 @@ class _SignInState extends State<SignIn> {
               child: SizedBox(
                   width: 200,
                   height: 200,
-                  child: Image.asset('assets/regra.jpg'),
+                  child: Image.network('https://backendsystem-rjgw.onrender.com/image/regra.jpg'),
               ),
             ),
             const Padding(

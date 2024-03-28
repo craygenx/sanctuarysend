@@ -9,10 +9,12 @@ import 'package:sanctuarysend/Layout/pdf_docs_layout/pdf_mobile_doc.dart';
 import 'package:sanctuarysend/Responsive/payment_breakpoint.dart';
 import 'package:sanctuarysend/widgets/popup.dart';
 
+import '../../Responsive/breakdown_breakpoint.dart';
 import '../../Responsive/pdf_docs_breakpoint.dart';
 import '../../widgets/custom_bold_txt.dart';
 import '../../widgets/main_appbar.dart';
 import '../../widgets/syncfusionCharts.dart';
+import '../Breakdown_layout/breakdownDesktop.dart';
 
 class AdminMobiLayout extends StatefulWidget {
   const AdminMobiLayout({super.key});
@@ -181,18 +183,34 @@ class _AdminState extends State<AdminMobiLayout> {
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Container(
-                                            color: const Color.fromRGBO(242, 250, 253, 1),
-                                            width: 170,
-                                            height: 40,
-                                            child: const Row(
-                                              children: [
-                                                Padding(
-                                                  padding: EdgeInsets.only(right: 10.0),
-                                                  child: FaIcon(FontAwesomeIcons.handHoldingHeart),
+                                          GestureDetector(
+                                            onTap: (){
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                  const BreakdownResponsiveLayout(
+                                                    mobileLayout:
+                                                    BreakdownDesktop(),
+                                                    desktopLayout:
+                                                    PaymentDesktopLayout(),
+                                                  ),
                                                 ),
-                                                BoldText(text: 'ThanksGiving')
-                                              ],
+                                              );
+                                            },
+                                            child: Container(
+                                              color: const Color.fromRGBO(242, 250, 253, 1),
+                                              width: 170,
+                                              height: 40,
+                                              child: const Row(
+                                                children: [
+                                                  Padding(
+                                                    padding: EdgeInsets.only(right: 10.0),
+                                                    child: FaIcon(FontAwesomeIcons.handHoldingHeart),
+                                                  ),
+                                                  BoldText(text: 'ThanksGiving')
+                                                ],
+                                              ),
                                             ),
                                           ),
                                           Container(

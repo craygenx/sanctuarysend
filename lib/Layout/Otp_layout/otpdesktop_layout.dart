@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sanctuarysend/Firebase/auth_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -37,19 +36,19 @@ class _OtpDesktopState extends State<OtpDesktop> {
     super.initState();
   }
 
-  _saveToLocalStorage(String username) async{
+  _saveToLocalStorage(String username) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('username', username);
   }
 
-  void checkEmail(String email) async{
+  void checkEmail(String email) async {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection('users')
         .where('email', isEqualTo: email)
         .get();
 
-    if(querySnapshot.docs.isNotEmpty){
-      for (QueryDocumentSnapshot doc in querySnapshot.docs){
+    if (querySnapshot.docs.isNotEmpty) {
+      for (QueryDocumentSnapshot doc in querySnapshot.docs) {
         String fName = doc['fName'];
         String lName = doc['lName'];
 
@@ -58,8 +57,7 @@ class _OtpDesktopState extends State<OtpDesktop> {
           isUserFound = true;
         });
       }
-    }
-    else{
+    } else {
       Fluttertoast.showToast(
         msg: 'User not found!',
         toastLength: Toast.LENGTH_SHORT,
@@ -102,7 +100,7 @@ class _OtpDesktopState extends State<OtpDesktop> {
 
   String? validateEmail(String value) {
     final RegExp emailRegex =
-    RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+        RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
 
     if (!emailRegex.hasMatch(value)) {
       return 'Enter a valid email address';
@@ -129,11 +127,10 @@ class _OtpDesktopState extends State<OtpDesktop> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: MediaQuery.of(context).size.width * 1/3,
-                    width: MediaQuery.of(context).size.height * 1/3,
-                    child: Image.asset('assets/regra.jpg',
-                      fit: BoxFit.fill
-                    ),
+                    height: MediaQuery.of(context).size.width * 1 / 3,
+                    width: MediaQuery.of(context).size.height * 1 / 3,
+                    child: Image.network(
+                        'https://backendsystem-rjgw.onrender.com/image/regra.jpg'),
                   )
                 ],
               ),
@@ -148,18 +145,24 @@ class _OtpDesktopState extends State<OtpDesktop> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(
-                      width: MediaQuery.of(context).size.width / 1/3,
+                      width: MediaQuery.of(context).size.width / 1 / 3,
                       child: Column(
                         children: [
                           const SizedBox(
-                            child: Center(child: BoldText(text: 'VERIFICATION', fontSize: 18.0,)),
+                            child: Center(
+                                child: BoldText(
+                              text: 'VERIFICATION',
+                              fontSize: 18.0,
+                            )),
                           ),
                           const Padding(
                             padding: EdgeInsets.only(left: 20.0, right: 20.0),
-                            child: BoldText(text: 'Lorem ipsum dolor sit amet conjecture anglicising elite. Maxime Lolita'),
+                            child: BoldText(
+                                text:
+                                    'Lorem ipsum dolor sit amet conjecture anglicising elite. Maxime Lolita'),
                           ),
                           SizedBox(
-                            width: MediaQuery.of(context).size.width /2,
+                            width: MediaQuery.of(context).size.width / 2,
                             height: 100,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -170,31 +173,34 @@ class _OtpDesktopState extends State<OtpDesktop> {
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+                                    padding: const EdgeInsets.only(
+                                        left: 20.0, right: 20.0),
                                     child: SizedBox(
                                       width: 100,
                                       child: TextFormField(
-                                        onChanged: (value){
+                                        controller: mailController,
+                                        onChanged: (value) {
                                           setState(() {
-                                            isEmailValid = validateEmail(value) == 'null';
+                                            isEmailValid =
+                                                validateEmail(value) == 'null';
                                           });
                                         },
                                         decoration: const InputDecoration(
                                             hintText: 'JohnDoe@gmail.com',
                                             focusedBorder: UnderlineInputBorder(
                                                 borderSide: BorderSide(
-                                                    color: Colors.black
-                                                )
-                                            )
-                                        ),
+                                                    color: Colors.black))),
                                       ),
                                     ),
                                   ),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(left: 15.0),
-                                  child: Icon(Icons.verified_user,
-                                    color: isEmailValid ? Colors.green : Colors.red,
+                                  child: Icon(
+                                    Icons.verified_user,
+                                    color: isEmailValid
+                                        ? Colors.green
+                                        : Colors.red,
                                   ),
                                 ),
                               ],
@@ -204,7 +210,8 @@ class _OtpDesktopState extends State<OtpDesktop> {
                             child: Column(
                               children: [
                                 SizedBox(
-                                  width: MediaQuery.of(context).size.width * 1/3,
+                                  width:
+                                      MediaQuery.of(context).size.width * 1 / 3,
                                   height: 150,
                                   child: Column(
                                     children: [
@@ -214,48 +221,86 @@ class _OtpDesktopState extends State<OtpDesktop> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.only(top: 30.0),
+                                        padding:
+                                            const EdgeInsets.only(top: 30.0),
                                         child: SizedBox(
-                                          width: MediaQuery.of(context).size.width /4,
-                                          child: isOtpSent ? ElevatedButton(
-                                            onPressed: (){
-                                              if(otpComplete() && isVerifying == false){
-                                                String mergedOtp = '';
-                                                for (TextEditingController controller in OtpFieldsState.controllers) {
-                                                  mergedOtp += controller.text;
-                                                }
-                                                authService.verifyOtp(mailController.text, mergedOtp);
-                                                Navigator.push(context, MaterialPageRoute(builder: (context)=>const AdminResponsiveLayout(mobileLayout: AdminMobiLayout(), desktopLayout: AdminDesktopLayout())));
-                                              }
-                                            },
-                                            style: ElevatedButton.styleFrom(
-                                                backgroundColor: Colors.deepPurpleAccent,
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.circular(20.0)
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              4,
+                                          child: isOtpSent
+                                              ? ElevatedButton(
+                                                  onPressed: () {
+                                                    if (otpComplete() &&
+                                                        isVerifying == false) {
+                                                      String mergedOtp = '';
+                                                      for (TextEditingController controller
+                                                          in OtpFieldsState
+                                                              .controllers) {
+                                                        mergedOtp +=
+                                                            controller.text;
+                                                      }
+                                                      authService.verifyOtp(
+                                                          mailController.text,
+                                                          mergedOtp);
+                                                      Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (context) => const AdminResponsiveLayout(
+                                                                  mobileLayout:
+                                                                      AdminMobiLayout(),
+                                                                  desktopLayout:
+                                                                      AdminDesktopLayout())));
+                                                    }
+                                                  },
+                                                  style: ElevatedButton.styleFrom(
+                                                      backgroundColor: Colors
+                                                          .deepPurpleAccent,
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          20.0))),
+                                                  child: const BoldText(
+                                                    text: 'VERIFY',
+                                                    fontSize: 18.0,
+                                                  ),
                                                 )
-                                            ),
-                                            child: const BoldText(text: 'VERIFY', fontSize: 18.0,),
-                                          )
                                               : ElevatedButton(
-                                            onPressed: () async {
-                                              checkEmail(mailController.text);
-                                              if (isEmailValid && mailController.text.isNotEmpty && isUserFound){
-                                                authService.sendEmail(mailController.text);
-                                                setState(() {
-                                                  isOtpSent = true;
-                                                });
-                                                startTimer();
-                                              }
-                                            },
-                                            style: ElevatedButton.styleFrom(
-                                                backgroundColor: Colors.deepPurpleAccent,
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.circular(20.0))),
-                                            child: isVerifying ? const CircularProgressIndicator(): const BoldText(
-                                              text: 'SEND OTP',
-                                              fontSize: 18.0,
-                                            ),
-                                          ),
+                                                  onPressed: () async {
+                                                    checkEmail(
+                                                        mailController.text);
+                                                    if (isEmailValid &&
+                                                        mailController
+                                                            .text.isNotEmpty &&
+                                                        isUserFound) {
+                                                      authService.sendEmail(
+                                                          mailController.text);
+                                                      setState(() {
+                                                        isOtpSent = true;
+                                                      });
+                                                      startTimer();
+                                                    } else {
+                                                      print(isUserFound);
+                                                    }
+                                                  },
+                                                  style: ElevatedButton.styleFrom(
+                                                      backgroundColor: Colors
+                                                          .deepPurpleAccent,
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          20.0))),
+                                                  child: isVerifying
+                                                      ? const CircularProgressIndicator()
+                                                      : const BoldText(
+                                                          text: 'SEND OTP',
+                                                          fontSize: 18.0,
+                                                        ),
+                                                ),
                                         ),
                                       )
                                     ],
@@ -263,25 +308,27 @@ class _OtpDesktopState extends State<OtpDesktop> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(top: 15.0),
-                                  child: RichText(text: TextSpan(
-                                      text: 'Re-send code in ',
-                                      style: const TextStyle(
-                                          fontSize: 16.0,
-                                          color: Colors.black
-                                      ),
-                                      children: <TextSpan>[
-                                        TextSpan(
-                                          text: _resendTimeout == 0 ? 'Resend' : '$_resendTimeout s',
-                                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                                            recognizer: TapGestureRecognizer()
-                                              ..onTap = () {
-                                                if (_resendTimeout == 0) {
-                                                  resendOtp();
-                                                }
-                                              }
-                                        )
-                                      ]
-                                  ),
+                                  child: RichText(
+                                    text: TextSpan(
+                                        text: 'Re-send code in ',
+                                        style: const TextStyle(
+                                            fontSize: 16.0,
+                                            color: Colors.black),
+                                        children: <TextSpan>[
+                                          TextSpan(
+                                              text: _resendTimeout == 0
+                                                  ? 'Resend'
+                                                  : '$_resendTimeout s',
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 16),
+                                              recognizer: TapGestureRecognizer()
+                                                ..onTap = () {
+                                                  if (_resendTimeout == 0) {
+                                                    resendOtp();
+                                                  }
+                                                })
+                                        ]),
                                   ),
                                 )
                               ],

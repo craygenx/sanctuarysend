@@ -3,6 +3,7 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sanctuarysend/Layout/Otp_layout/otpdesktop_layout.dart';
+import 'package:sanctuarysend/Layout/Registration_layout/regmobi_layout.dart';
 import 'package:sanctuarysend/Layout/Signup_layout/signupdesktop_layout.dart';
 import 'package:sanctuarysend/Layout/Signup_layout/signupmobi_layout.dart';
 import 'package:sanctuarysend/Responsive/signin_breakpoint.dart';
@@ -26,23 +27,36 @@ void main() async {
     await Firebase.initializeApp();
   }
 
-
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   final router = FluroRouter();
-  MyApp({super.key}){
-    router.define('/signin', handler: Handler(handlerFunc: (_, __) => SigninResponsiveLayout(
-      mobileLayout: SignIn(router: router,),
-      desktopLayout: const OtpDesktop(),
-    )));
+  MyApp({super.key}) {
+    router.define('/signin',
+        handler: Handler(
+            handlerFunc: (_, __) => SigninResponsiveLayout(
+                  mobileLayout: SignIn(
+                    router: router,
+                  ),
+                  desktopLayout: const OtpDesktop(),
+                )));
     router.define('/registration', handler: Handler(handlerFunc: (_, params) {
-      String email = params['email'] ? [0] ?? '';
-      String role = params['role'] ? [0] ?? '';
-      return SignupResponsiveLayout(mobileLayout: SignUpMobi(email: email, role: role,), desktopLayout:
-      SignUpDesktop(email: email, role: role,));
+      String email = params['email']?[0] ?? '';
+      String role = params['role']?[0] ?? '';
+      return SignupResponsiveLayout(
+          mobileLayout: SignUpMobi(
+            email: email,
+            role: role,
+          ),
+          desktopLayout: SignUpDesktop(
+            email: email,
+            role: role,
+          ));
     }));
+
+    router.define('/signup',
+        handler: Handler(handlerFunc: (_, __) => const RegistrationMobi()));
   }
 
   // This widget is the root of your application.
@@ -59,15 +73,18 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/signin',
       onGenerateInitialRoutes: (String initialRoute) {
-        return [MaterialPageRoute(
-          settings: const RouteSettings(name: '/signin'),
-          builder: (BuildContext context){
-            return SigninResponsiveLayout(
-              mobileLayout: SignIn(router: router,),
-              desktopLayout: const OtpDesktop(),
-            );
-          },
-        ),
+        return [
+          MaterialPageRoute(
+            settings: const RouteSettings(name: '/signin'),
+            builder: (BuildContext context) {
+              return SigninResponsiveLayout(
+                mobileLayout: SignIn(
+                  router: router,
+                ),
+                desktopLayout: const OtpDesktop(),
+              );
+            },
+          ),
         ];
       },
     );

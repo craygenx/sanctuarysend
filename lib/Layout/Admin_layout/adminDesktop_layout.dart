@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:sanctuarysend/Layout/Breakdown_layout/breakdownDesktop.dart';
 import 'package:sanctuarysend/Layout/Payment_layout/paymentDesktop_layout.dart';
 import 'package:sanctuarysend/Layout/Payment_layout/paymentMobi_layout.dart';
 import 'package:sanctuarysend/Responsive/payment_breakpoint.dart';
 
+import '../../Responsive/breakdown_breakpoint.dart';
 import '../../widgets/custom_bold_txt.dart';
 import '../../widgets/main_appbar.dart';
 import '../../widgets/syncfusionCharts.dart';
@@ -21,18 +23,17 @@ class AdminDesktopLayout extends StatefulWidget {
 class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
   String fDate = '';
   double balance = 0.0;
-  final CollectionReference archiveBalance = FirebaseFirestore.instance.collection('balance');
+  final CollectionReference archiveBalance =
+      FirebaseFirestore.instance.collection('balance');
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     timeFormat();
     _fetchBalance();
   }
 
-  void timeFormat(){
-
+  void timeFormat() {
     DateTime date = DateTime.now();
     String formattedDate = DateFormat('dd MMM yyyy').format(date);
 
@@ -41,14 +42,14 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
     });
   }
 
-  void _fetchBalance() async{
+  void _fetchBalance() async {
     try {
       var balanceSnapshot = await archiveBalance.doc('balID').get();
       var data = balanceSnapshot.data() as Map<String, dynamic>;
       setState(() {
         balance = double.tryParse(data['newBalance']) ?? 0.0;
       });
-    }catch (e) {
+    } catch (e) {
       Fluttertoast.showToast(
         msg: 'Failed to fetch balance',
         toastLength: Toast.LENGTH_SHORT,
@@ -59,6 +60,7 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
       );
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,7 +83,7 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                         child: Row(
                           children: [
                             SizedBox(
-                              width: MediaQuery.of(context).size.width * 3/4,
+                              width: MediaQuery.of(context).size.width * 3 / 4,
                               height: MediaQuery.of(context).size.height * 0.6,
                               child: const SyncfusionCustomRadiusPieChart(),
                             ),
@@ -165,23 +167,38 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    Container(
-                                      width: 150,
-                                      height: 50,
-                                      color: const Color.fromRGBO(
-                                          242, 250, 253, 1),
-                                      child: const Row(
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsets.only(right: 10.0),
-                                            child: FaIcon(FontAwesomeIcons
-                                                .handHoldingHeart),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const BreakdownResponsiveLayout(
+                                              mobileLayout: BreakdownDesktop(),
+                                              desktopLayout:
+                                                  PaymentDesktopLayout(),
+                                            ),
                                           ),
-                                          BoldText(
-                                            text: 'ThanksGiving',
-                                          )
-                                        ],
+                                        );
+                                      },
+                                      child: Container(
+                                        width: 150,
+                                        height: 50,
+                                        color: const Color.fromRGBO(
+                                            242, 250, 253, 1),
+                                        child: const Row(
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  EdgeInsets.only(right: 10.0),
+                                              child: FaIcon(FontAwesomeIcons
+                                                  .handHoldingHeart),
+                                            ),
+                                            BoldText(
+                                              text: 'ThanksGiving',
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ),
                                     Container(
@@ -376,16 +393,16 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                                         GestureDetector(
                                           onTap: () {
                                             Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        const PaymentResponsiveLayout(
-                                                            mobileLayout:
-                                                                PaymentMobiLayout(),
-                                                            desktopLayout:
-                                                                PaymentDesktopLayout(),
-                                                        ),
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const PaymentResponsiveLayout(
+                                                  mobileLayout:
+                                                      PaymentMobiLayout(),
+                                                  desktopLayout:
+                                                      PaymentDesktopLayout(),
                                                 ),
+                                              ),
                                             );
                                           },
                                           child: const SizedBox(
@@ -495,31 +512,29 @@ class _AdminDesktopLayoutState extends State<AdminDesktopLayout> {
                                   ),
                                 ),
                                 Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        1 /
-                                        4,
-                                    height: 100,
-                                    color:
-                                        const Color.fromRGBO(242, 250, 253, 1),
-                                    child: const Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Leadership Summit 2024',
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold),
+                                  width:
+                                      MediaQuery.of(context).size.width * 1 / 4,
+                                  height: 100,
+                                  color: const Color.fromRGBO(242, 250, 253, 1),
+                                  child: const Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Leadership Summit 2024',
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        'Lorem ipsum dolor sit amet conjecture anglicising elite. Maxime Lolita dolor sit amet conjecture anglicising',
+                                        maxLines: 3,
+                                        style: TextStyle(
+                                          overflow: TextOverflow.ellipsis,
                                         ),
-                                        Text(
-                                          'Lorem ipsum dolor sit amet conjecture anglicising elite. Maxime Lolita dolor sit amet conjecture anglicising',
-                                          maxLines: 3,
-                                          style: TextStyle(
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),

@@ -22,7 +22,7 @@ class _SignUpDesktopState extends State<SignUpDesktop> {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
@@ -31,9 +31,13 @@ class _SignUpDesktopState extends State<SignUpDesktop> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 1/4,
-                    height: MediaQuery.of(context).size.height * 1/4,
-                    child: Image.network('https://backendsystem-rjgw.onrender.com/image/regra.jpg'),
+                    width: MediaQuery.of(context).size.width * 1 / 2,
+                    height: MediaQuery.of(context).size.height * 3 / 4,
+                    child: Image.network(
+                        width: MediaQuery.of(context).size.width * 1 / 2,
+                        height: MediaQuery.of(context).size.height * 3 / 4,
+                        fit: BoxFit.cover,
+                        'https://backendsystem-rjgw.onrender.com/image/regra.jpg'),
                   ),
                 ],
               ),
@@ -41,33 +45,46 @@ class _SignUpDesktopState extends State<SignUpDesktop> {
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Container(
-                width: MediaQuery.of(context).size.width * 1/3,
+                width: MediaQuery.of(context).size.width * 1 / 3,
                 color: const Color.fromRGBO(242, 250, 253, 1),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Column(
                       children: [
-                        const SizedBox(
-                          child: Center(child: BoldText(text: 'SIGNUP', fontSize: 24,)),
+                        const Padding(
+                          padding: EdgeInsets.only(bottom: 15.0),
+                          child: SizedBox(
+                            child: Center(
+                                child: BoldText(
+                              text: 'SIGNUP',
+                              fontSize: 24,
+                            )),
+                          ),
                         ),
-                        const SizedBox(
-                          child: BoldText(
-                            text: 'Lorem ipsum dolor sit amet conjecture anglicising elite. Maxime Lolita',
-                            fontSize: 16,
-                            fontWeight: FontWeight.normal,
+                        const Padding(
+                          padding: EdgeInsets.only(bottom: 15.0),
+                          child: SizedBox(
+                            child: BoldText(
+                              text:
+                                  'Lorem ipsum dolor sit amet conjecture anglicising elite. Maxime Lolita',
+                              fontSize: 16,
+                              fontWeight: FontWeight.normal,
+                            ),
                           ),
                         ),
                         Container(
                           width: MediaQuery.of(context).size.width,
                           height: 250,
-                          decoration: const BoxDecoration(
-                              color: Colors.cyanAccent
-                          ),
+                          decoration:
+                              const BoxDecoration(color: Colors.transparent),
                           child: Column(
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(bottom: 15.0),
                                 child: SizedBox(
+                                  // color: Colors.cyanAccent,
                                   // padding: const EdgeInsets.all(16.0),
                                   width: MediaQuery.of(context).size.width,
                                   height: 150,
@@ -77,36 +94,40 @@ class _SignUpDesktopState extends State<SignUpDesktop> {
                                         children: [
                                           Expanded(
                                             child: Padding(
-                                              padding: EdgeInsets.only(top: 8.0, bottom: 15, right: 4.0),
+                                              padding: EdgeInsets.only(
+                                                  top: 8.0,
+                                                  bottom: 15,
+                                                  right: 4.0),
                                               child: SizedBox(
                                                 height: 50,
                                                 child: TextField(
                                                   decoration: InputDecoration(
                                                       hintText: 'LastName',
-                                                      focusedBorder: UnderlineInputBorder(
-                                                          borderSide: BorderSide(
-                                                              color: Colors.black
-                                                          )
-                                                      )
-                                                  ),
+                                                      focusedBorder:
+                                                          UnderlineInputBorder(
+                                                              borderSide: BorderSide(
+                                                                  color: Colors
+                                                                      .black))),
                                                 ),
                                               ),
                                             ),
                                           ),
                                           Expanded(
                                             child: Padding(
-                                              padding: EdgeInsets.only(top: 8.0, bottom: 15.0, left: 4.0),
+                                              padding: EdgeInsets.only(
+                                                  top: 8.0,
+                                                  bottom: 15.0,
+                                                  left: 4.0),
                                               child: SizedBox(
                                                 height: 50,
                                                 child: TextField(
                                                   decoration: InputDecoration(
                                                       hintText: 'FirstName',
-                                                      focusedBorder: UnderlineInputBorder(
-                                                          borderSide: BorderSide(
-                                                              color: Colors.black
-                                                          )
-                                                      )
-                                                  ),
+                                                      focusedBorder:
+                                                          UnderlineInputBorder(
+                                                              borderSide: BorderSide(
+                                                                  color: Colors
+                                                                      .black))),
                                                 ),
                                               ),
                                             ),
@@ -117,38 +138,42 @@ class _SignUpDesktopState extends State<SignUpDesktop> {
                                         children: [
                                           Expanded(
                                             child: Padding(
-                                              padding: const EdgeInsets.only(right: 4.0),
+                                              padding: const EdgeInsets.only(
+                                                  right: 4.0),
                                               child: SizedBox(
                                                 height: 50,
                                                 child: TextField(
                                                   readOnly: true,
-                                                  controller: TextEditingController(text: widget.email),
+                                                  controller:
+                                                      TextEditingController(
+                                                          text: widget.email),
                                                   decoration: const InputDecoration(
-                                                      focusedBorder: UnderlineInputBorder(
-                                                          borderSide: BorderSide(
-                                                              color: Colors.black
-                                                          )
-                                                      )
-                                                  ),
+                                                      focusedBorder:
+                                                          UnderlineInputBorder(
+                                                              borderSide: BorderSide(
+                                                                  color: Colors
+                                                                      .black))),
                                                 ),
                                               ),
                                             ),
                                           ),
                                           Expanded(
                                             child: Padding(
-                                              padding: const EdgeInsets.only(left: 4.0),
+                                              padding: const EdgeInsets.only(
+                                                  left: 4.0),
                                               child: SizedBox(
                                                 height: 50,
                                                 child: TextField(
                                                   readOnly: true,
-                                                  controller: TextEditingController(text: widget.role),
+                                                  controller:
+                                                      TextEditingController(
+                                                          text: widget.role),
                                                   decoration: const InputDecoration(
-                                                      focusedBorder: UnderlineInputBorder(
-                                                          borderSide: BorderSide(
-                                                              color: Colors.black
-                                                          )
-                                                      )
-                                                  ),
+                                                      focusedBorder:
+                                                          UnderlineInputBorder(
+                                                              borderSide: BorderSide(
+                                                                  color: Colors
+                                                                      .black))),
                                                 ),
                                               ),
                                             ),
@@ -160,16 +185,19 @@ class _SignUpDesktopState extends State<SignUpDesktop> {
                                 ),
                               ),
                               SizedBox(
-                                width: MediaQuery.of(context).size.width * 3/4,
+                                width:
+                                    MediaQuery.of(context).size.width * 1 / 4,
                                 child: ElevatedButton(
-                                  onPressed: (){},
+                                  onPressed: () {},
                                   style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.deepPurpleAccent,
                                       shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(20.0)
-                                      )
+                                          borderRadius:
+                                              BorderRadius.circular(20.0))),
+                                  child: const BoldText(
+                                    text: 'SIGN UP',
+                                    fontSize: 22.0,
                                   ),
-                                  child: const BoldText(text: 'SEND OTP', fontSize: 22.0,),
                                 ),
                               )
                             ],

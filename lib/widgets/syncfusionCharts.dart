@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../widgets/custom_bold_txt.dart';
 
-
 // class SyncfusionCustomRadiusPieChart extends StatefulWidget {
 //   const SyncfusionCustomRadiusPieChart({super.key});
 //
@@ -154,10 +153,12 @@ class SyncfusionCustomRadiusPieChart extends StatefulWidget {
   const SyncfusionCustomRadiusPieChart({Key? key}) : super(key: key);
 
   @override
-  State<SyncfusionCustomRadiusPieChart> createState() => SyncfusionCustomRadiusPieChartState();
+  State<SyncfusionCustomRadiusPieChart> createState() =>
+      SyncfusionCustomRadiusPieChartState();
 }
 
-class SyncfusionCustomRadiusPieChartState extends State<SyncfusionCustomRadiusPieChart> {
+class SyncfusionCustomRadiusPieChartState
+    extends State<SyncfusionCustomRadiusPieChart> {
   List<Color> chartColors = [
     const Color.fromRGBO(75, 135, 185, 1),
     const Color.fromRGBO(192, 108, 132, 1),
@@ -184,7 +185,8 @@ class SyncfusionCustomRadiusPieChartState extends State<SyncfusionCustomRadiusPi
 
         if (snapshot.data == null || snapshot.data!.docs.isEmpty) {
           // Display SVG or any other widget when there is no data
-          return Image.asset('assets/nodt.png'); // Replace YourSVGWidget with your actual SVG widget
+          return Image.asset(
+              'assets/nodt.png'); // Replace YourSVGWidget with your actual SVG widget
         }
 
         // Process data and calculate totals for each category
@@ -209,7 +211,9 @@ class SyncfusionCustomRadiusPieChartState extends State<SyncfusionCustomRadiusPi
         var topCategories = sortedCategories.take(4).toList();
 
         // Calculate the total for 'Others'
-        var othersTotal = sortedCategories.sublist(4).fold(0, (prev, element) => (prev + element.value).toInt());
+        var othersTotal = sortedCategories
+            .sublist(4)
+            .fold(0, (prev, element) => (prev + element.value).toInt());
 
         // Create chart data
         List<ChartData> chartData = topCategories.map((entry) {
@@ -232,19 +236,17 @@ class SyncfusionCustomRadiusPieChartState extends State<SyncfusionCustomRadiusPi
                   children: [
                     for (var category in topCategories)
                       SizedBox(
-                        child: Row(
-                            children: [
-                              Container(
-                                height: 10,
-                                width: 10,
-                                color: chartColors[colorIndex % chartColors.length],
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 8.0),
-                                child: BoldText(text: category.key),
-                              ),
-                            ]
-                        ),
+                        child: Row(children: [
+                          Container(
+                            height: 10,
+                            width: 10,
+                            color: chartColors[topCategories.indexOf(category)],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: BoldText(text: category.key),
+                          ),
+                        ]),
                       ),
                   ],
                 ),
@@ -256,7 +258,7 @@ class SyncfusionCustomRadiusPieChartState extends State<SyncfusionCustomRadiusPi
                   dataSource: chartData,
                   xValueMapper: (ChartData data, _) => data.x,
                   yValueMapper: (ChartData data, _) => data.y,
-                  innerRadius: '10%',
+                  innerRadius: '40%',
                   radius: '25%',
                   explode: true,
                   explodeAll: true,
@@ -274,7 +276,7 @@ class SyncfusionCustomRadiusPieChartState extends State<SyncfusionCustomRadiusPi
                     Container(
                       height: 40,
                       width: 100,
-                      color: chartColors[colorIndex % chartColors.length],
+                      color: chartColors[topCategories.indexOf(category)],
                       child: Column(
                         children: [
                           BoldText(text: category.key),
@@ -298,5 +300,3 @@ class ChartData {
   final double y;
   final String size;
 }
-
-

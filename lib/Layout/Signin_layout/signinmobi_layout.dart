@@ -3,7 +3,6 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sanctuarysend/Firebase/auth_service.dart';
-import 'package:sanctuarysend/Layout/Registration_layout/regdesktop_layout.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Responsive/otp_breakpoint.dart';
@@ -83,25 +82,11 @@ class _SignInState extends State<SignIn> {
           children: [
             Padding(
               padding: const EdgeInsets.only(bottom: 60.0),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const RegistrationDesktop()));
-                  // widget.router.navigateTo(context, '/signup');
-                  // showBottomSheet(
-                  //     context: context,
-                  //     builder: (BuildContext context) {
-                  //       return const Text('Hello');
-                  //     });
-                },
-                child: SizedBox(
-                  width: 200,
-                  height: 200,
-                  child: Image.network(
-                      'https://backendsystem-rjgw.onrender.com/image/regra.jpg'),
-                ),
+              child: SizedBox(
+                width: 200,
+                height: 200,
+                child: Image.network(
+                    'https://backendsystem-rjgw.onrender.com/image/regra.jpg'),
               ),
             ),
             const Padding(

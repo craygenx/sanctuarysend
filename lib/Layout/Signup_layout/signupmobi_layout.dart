@@ -25,7 +25,7 @@ class _SignUpMobiState extends State<SignUpMobi> {
 
   final TextEditingController lNameController = TextEditingController();
 
-  final  uuid = const Uuid();
+  final uuid = const Uuid();
 
   bool isButtonDisabled = false;
 
@@ -41,18 +41,23 @@ class _SignUpMobiState extends State<SignUpMobi> {
               child: SizedBox(
                   height: 200,
                   width: 200,
-                  child: Image.network('https://backendsystem-rjgw.onrender.com/image/regra.jpg')
-              ),
+                  child: Image.network(
+                      'https://backendsystem-rjgw.onrender.com/image/regra.jpg')),
             ),
             const Padding(
               padding: EdgeInsets.only(bottom: 8.0),
-              child: BoldText(text: 'SIGN UP', fontSize: 18.0,),
+              child: BoldText(
+                text: 'SIGN UP',
+                fontSize: 18.0,
+              ),
             ),
             const Padding(
               padding: EdgeInsets.only(bottom: 30.0),
               child: BoldText(
-                text: 'Lorem ipsum dolor sit amet conjecture anglicising elite. Maxime Lolita',
-                fontSize: 16.0,fontWeight:  FontWeight.normal,
+                text:
+                    'Lorem ipsum dolor sit amet conjecture anglicising elite. Maxime Lolita',
+                fontSize: 16.0,
+                fontWeight: FontWeight.normal,
               ),
             ),
             Padding(
@@ -61,8 +66,7 @@ class _SignUpMobiState extends State<SignUpMobi> {
                 width: MediaQuery.of(context).size.width,
                 height: 250,
                 decoration: const BoxDecoration(
-                    color: Color.fromRGBO(242, 250, 253, 1)
-                ),
+                    color: Color.fromRGBO(242, 250, 253, 1)),
                 child: Column(
                   children: [
                     Padding(
@@ -77,38 +81,34 @@ class _SignUpMobiState extends State<SignUpMobi> {
                               children: [
                                 Expanded(
                                   child: Padding(
-                                    padding: const EdgeInsets.only(top: 8.0, bottom: 15, right: 4.0),
+                                    padding: const EdgeInsets.only(
+                                        top: 8.0, bottom: 15, right: 4.0),
                                     child: SizedBox(
                                       height: 50,
                                       child: TextField(
                                         controller: lNameController,
                                         decoration: const InputDecoration(
-                                          hintText: 'LastName',
+                                            hintText: 'LastName',
                                             focusedBorder: UnderlineInputBorder(
                                                 borderSide: BorderSide(
-                                                    color: Colors.black
-                                                )
-                                            )
-                                        ),
+                                                    color: Colors.black))),
                                       ),
                                     ),
                                   ),
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: const EdgeInsets.only(top: 8.0, bottom: 15.0, left: 4.0),
+                                    padding: const EdgeInsets.only(
+                                        top: 8.0, bottom: 15.0, left: 4.0),
                                     child: SizedBox(
                                       height: 50,
                                       child: TextField(
-                                        controller: lNameController,
+                                        controller: fNameController,
                                         decoration: const InputDecoration(
                                             hintText: 'FirstName',
                                             focusedBorder: UnderlineInputBorder(
                                                 borderSide: BorderSide(
-                                                    color: Colors.black
-                                                )
-                                            )
-                                        ),
+                                                    color: Colors.black))),
                                       ),
                                     ),
                                   ),
@@ -124,14 +124,12 @@ class _SignUpMobiState extends State<SignUpMobi> {
                                       height: 50,
                                       child: TextField(
                                         readOnly: true,
-                                        controller: TextEditingController(text: widget.email),
+                                        controller: TextEditingController(
+                                            text: widget.email),
                                         decoration: const InputDecoration(
                                             focusedBorder: UnderlineInputBorder(
                                                 borderSide: BorderSide(
-                                                    color: Colors.black
-                                                )
-                                            )
-                                        ),
+                                                    color: Colors.black))),
                                       ),
                                     ),
                                   ),
@@ -143,14 +141,12 @@ class _SignUpMobiState extends State<SignUpMobi> {
                                       height: 50,
                                       child: TextField(
                                         readOnly: true,
-                                        controller: TextEditingController(text: widget.role),
+                                        controller: TextEditingController(
+                                            text: widget.role),
                                         decoration: const InputDecoration(
                                             focusedBorder: UnderlineInputBorder(
                                                 borderSide: BorderSide(
-                                                    color: Colors.black
-                                                )
-                                            )
-                                        ),
+                                                    color: Colors.black))),
                                       ),
                                     ),
                                   ),
@@ -162,40 +158,60 @@ class _SignUpMobiState extends State<SignUpMobi> {
                       ),
                     ),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 3/4,
-                      child: isButtonDisabled ? const Center(
-                        child: SizedBox(
-                            width: 35,
-                            height: 35,
-                            child: CircularProgressIndicator()),
-                      ) : ElevatedButton(
-                        onPressed: () async{
-                          setState(() {
-                            isButtonDisabled = true;
-                          });
-                          RegistrationModel registrationModel = RegistrationModel(fName: fNameController.text, lName: lNameController.text, email: widget.email, role: widget.role, createdAt: DateTime.now());
-                          await FirebaseFirestore.instance.collection('users').doc(uuid.v1()).set(registrationModel.toMap());
-                          Fluttertoast.showToast(
-                            msg: 'Registration successful',
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.TOP,
-                            backgroundColor: Colors.greenAccent,
-                            textColor: Colors.black,
-                            fontSize: 22.0,
-                          );
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => const AdminResponsiveLayout(mobileLayout: AdminMobiLayout(), desktopLayout: AdminDesktopLayout())));
-                          setState(() {
-                            isButtonDisabled = false;
-                          });
-                        },
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.deepPurpleAccent,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20.0)
+                      width: MediaQuery.of(context).size.width * 3 / 4,
+                      child: isButtonDisabled
+                          ? const Center(
+                              child: SizedBox(
+                                  width: 35,
+                                  height: 35,
+                                  child: CircularProgressIndicator()),
                             )
-                        ),
-                        child: const BoldText(text: 'REGISTER', fontSize: 18.0,),
-                      ),
+                          : ElevatedButton(
+                              onPressed: () async {
+                                setState(() {
+                                  isButtonDisabled = true;
+                                });
+                                RegistrationModel registrationModel =
+                                    RegistrationModel(
+                                        fName: fNameController.text,
+                                        lName: lNameController.text,
+                                        email: widget.email,
+                                        role: widget.role,
+                                        createdAt: DateTime.now());
+                                await FirebaseFirestore.instance
+                                    .collection('users')
+                                    .doc(uuid.v1())
+                                    .set(registrationModel.toMap());
+                                Fluttertoast.showToast(
+                                  msg: 'Registration successful',
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.TOP,
+                                  backgroundColor: Colors.greenAccent,
+                                  textColor: Colors.black,
+                                  fontSize: 22.0,
+                                );
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const AdminResponsiveLayout(
+                                                mobileLayout: AdminMobiLayout(),
+                                                desktopLayout:
+                                                    AdminDesktopLayout())));
+                                setState(() {
+                                  isButtonDisabled = false;
+                                });
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.deepPurpleAccent,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(20.0))),
+                              child: const BoldText(
+                                text: 'REGISTER',
+                                fontSize: 18.0,
+                              ),
+                            ),
                     )
                   ],
                 ),

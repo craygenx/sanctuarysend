@@ -3,9 +3,11 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sanctuarysend/Layout/Otp_layout/otpdesktop_layout.dart';
+import 'package:sanctuarysend/Layout/Registration_layout/regdesktop_layout.dart';
 import 'package:sanctuarysend/Layout/Registration_layout/regmobi_layout.dart';
 import 'package:sanctuarysend/Layout/Signup_layout/signupdesktop_layout.dart';
 import 'package:sanctuarysend/Layout/Signup_layout/signupmobi_layout.dart';
+import 'package:sanctuarysend/Responsive/registration_breakpoint.dart';
 import 'package:sanctuarysend/Responsive/signin_breakpoint.dart';
 import 'package:sanctuarysend/Responsive/signup_breakpoint.dart';
 
@@ -55,8 +57,16 @@ class MyApp extends StatelessWidget {
           ));
     }));
 
-    router.define('/signup',
-        handler: Handler(handlerFunc: (_, __) => const RegistrationMobi()));
+    router.define('/splash',
+        handler: Handler(
+            handlerFunc: (_, __) => RegistrationResponsiveLayout(
+                  mobileLayout: RegistrationMobi(
+                    router: router,
+                  ),
+                  desktopLayout: RegistrationDesktop(
+                    router: router,
+                  ),
+                )));
   }
 
   // This widget is the root of your application.
@@ -71,17 +81,19 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: '/signin',
+      initialRoute: '/splash',
       onGenerateInitialRoutes: (String initialRoute) {
         return [
           MaterialPageRoute(
-            settings: const RouteSettings(name: '/signin'),
+            settings: const RouteSettings(name: '/splash'),
             builder: (BuildContext context) {
-              return SigninResponsiveLayout(
-                mobileLayout: SignIn(
+              return RegistrationResponsiveLayout(
+                mobileLayout: RegistrationMobi(
                   router: router,
                 ),
-                desktopLayout: const OtpDesktop(),
+                desktopLayout: RegistrationDesktop(
+                  router: router,
+                ),
               );
             },
           ),

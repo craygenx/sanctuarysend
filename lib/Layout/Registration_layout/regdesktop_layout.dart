@@ -1,9 +1,11 @@
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:sanctuarysend/widgets/church_reg_popup.dart';
 import 'package:sanctuarysend/widgets/custom_bold_txt.dart';
 
 class RegistrationDesktop extends StatelessWidget {
-  const RegistrationDesktop({super.key});
+  final FluroRouter router;
+  const RegistrationDesktop({super.key, required this.router});
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +73,9 @@ class RegistrationDesktop extends StatelessWidget {
                         BorderRadius.circular(15.0), // Optional: border radius
                   ),
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      router.navigateTo(context, '/signin');
+                    },
                     child: const BoldText(
                       text: 'SignIn',
                     ),

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class MyDropdown extends StatefulWidget {
-  const MyDropdown({super.key});
+  final Function(String)? onItemSelected;
+  const MyDropdown({super.key, this.onItemSelected});
 
   @override
   State<MyDropdown> createState() => _MyDropdownState();
@@ -43,6 +44,9 @@ class _MyDropdownState extends State<MyDropdown> {
         setState(() {
           selectedItem = selection;
         });
+        if (widget.onItemSelected != null) {
+          widget.onItemSelected!(selection);
+        }
       },
       fieldViewBuilder: (BuildContext context,
           TextEditingController textEditingController,

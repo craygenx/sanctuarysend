@@ -25,10 +25,10 @@ class _PaymentDesktopLayoutState extends State<PaymentDesktopLayout> {
   String selectedCategory = '';
   var uuid = const Uuid();
   TextEditingController paymentController = TextEditingController();
-  final CollectionReference archiveBalance = FirebaseFirestore.instance.collection('balance');
+  final CollectionReference archiveBalance =
+      FirebaseFirestore.instance.collection('balance');
   Map<String, double> categoryAmounts = {};
   List<String> categories = ['ThanksGiving', 'Offering', 'Tithe', 'Rent'];
-
 
   @override
   void initState() {
@@ -46,7 +46,7 @@ class _PaymentDesktopLayoutState extends State<PaymentDesktopLayout> {
     paymentController.dispose();
   }
 
-  void _updateCategories(){
+  void _updateCategories() {
     setState(() {
       totalAmount = double.tryParse(paymentController.text) ?? 0.0;
       _updateDynamicCategories();
@@ -54,7 +54,7 @@ class _PaymentDesktopLayoutState extends State<PaymentDesktopLayout> {
     });
   }
 
-  void _updateDynamicCategories(){
+  void _updateDynamicCategories() {
     if (categoryAmounts.isNotEmpty) {
       double amountPerCategory = totalAmount / categoryAmounts.length;
       categoryAmounts.forEach((category, _) {
@@ -63,21 +63,22 @@ class _PaymentDesktopLayoutState extends State<PaymentDesktopLayout> {
     }
   }
 
-  void _fetchCategories() async{
-    QuerySnapshot votesSnapshot = await FirebaseFirestore.instance.collection('votes').get();
+  void _fetchCategories() async {
+    QuerySnapshot votesSnapshot =
+        await FirebaseFirestore.instance.collection('votes').get();
     setState(() {
-      categoryAmounts = { for (var doc in votesSnapshot.docs) doc['title'] : 0.0 };
+      categoryAmounts = {for (var doc in votesSnapshot.docs) doc['title']: 0.0};
     });
   }
 
-  void _fetchBalance() async{
+  void _fetchBalance() async {
     try {
       var balanceSnapshot = await archiveBalance.doc('balID').get();
       var data = balanceSnapshot.data() as Map<String, dynamic>;
       setState(() {
         balance = double.tryParse(data['newBalance']) ?? 0.0;
       });
-    }catch (e) {
+    } catch (e) {
       Fluttertoast.showToast(
         msg: 'Failed to fetch Balance',
         toastLength: Toast.LENGTH_SHORT,
@@ -89,13 +90,22 @@ class _PaymentDesktopLayoutState extends State<PaymentDesktopLayout> {
     }
   }
 
-  void uploadNewBal() async{
-    BalanceModel balanceModel = BalanceModel(prevBalance: balance.toString(), newBalance: expectedTotal.toString(), lastModified: DateTime.now());
-    await FirebaseFirestore.instance.collection('balance').doc('balID').set(balanceModel.toMap());
+  void uploadNewBal() async {
+    BalanceModel balanceModel = BalanceModel(
+        prevBalance: balance.toString(),
+        newBalance: expectedTotal.toString(),
+        lastModified: DateTime.now());
+    await FirebaseFirestore.instance
+        .collection('balance')
+        .doc('balID')
+        .set(balanceModel.toMap());
   }
 
   Future<void> _uploadDataToFirebase(String moneySource) async {
-    await FirebaseFirestore.instance.collection('paymentBreakdown').doc(uuid.v1()).set({
+    await FirebaseFirestore.instance
+        .collection('paymentBreakdown')
+        .doc(uuid.v1())
+        .set({
       'date': DateTime.now(),
       'moneySource': moneySource,
       'voteAllocation': categoryAmounts,
@@ -115,7 +125,7 @@ class _PaymentDesktopLayoutState extends State<PaymentDesktopLayout> {
           children: [
             SizedBox(
               height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width * 1/2,
+              width: MediaQuery.of(context).size.width * 1 / 2,
               // color: Colors.blue,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -125,58 +135,61 @@ class _PaymentDesktopLayoutState extends State<PaymentDesktopLayout> {
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+                          padding:
+                              const EdgeInsets.only(top: 20.0, bottom: 20.0),
                           child: SizedBox(
                             width: 300,
                             height: 300,
-                            child: Image.network('https://backendsystem-rjgw.onrender.com/image/wallet1.jpg'),
+                            child: Image.network(
+                                'https://backendsystem-rjgw.onrender.com/image/wallet3.jpg'),
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+                          padding:
+                              const EdgeInsets.only(left: 20.0, right: 20.0),
                           child: SizedBox(
                             child: Row(
                               children: [
                                 Expanded(
-                                  child: GestureDetector(
-                                    onTap: (){
-                                      setState(() {
-                                        paymentMode = 'cash';
-                                        selectedValue = 2;
-                                      });
-                                    },
-                                    child: Container(
+                                    child: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      paymentMode = 'cash';
+                                      selectedValue = 2;
+                                    });
+                                  },
+                                  child: Container(
                                     height: 50,
                                     decoration: BoxDecoration(
-                                      color: paymentMode == 'cash' ? Colors.grey : Colors.white,
-                                      border: Border.all(
-                                        color: Colors.black
-                                      )
-                                    ),
+                                        color: paymentMode == 'cash'
+                                            ? Colors.grey
+                                            : Colors.white,
+                                        border:
+                                            Border.all(color: Colors.black)),
                                     // color: Colors.purple,
                                     child: const BoldText(text: 'Cash'),
-                                                                    ),
-                                  )),
+                                  ),
+                                )),
                                 Expanded(
-                                  child: GestureDetector(
-                                    onTap: (){
-                                      setState(() {
-                                        paymentMode = 'mobile';
-                                        selectedValue = 1;
-                                      });
-                                    },
-                                    child: Container(
+                                    child: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      paymentMode = 'mobile';
+                                      selectedValue = 1;
+                                    });
+                                  },
+                                  child: Container(
                                     height: 50,
                                     // color: Colors.red,
                                     decoration: BoxDecoration(
-                                      color: paymentMode == 'mobile' ? Colors.grey : Colors.white,
-                                        border: Border.all(
-                                            color: Colors.black
-                                        )
-                                    ),
+                                        color: paymentMode == 'mobile'
+                                            ? Colors.grey
+                                            : Colors.white,
+                                        border:
+                                            Border.all(color: Colors.black)),
                                     child: const BoldText(text: 'Mobile Money'),
-                                    ),
-                                  )),
+                                  ),
+                                )),
                               ],
                             ),
                           ),
@@ -184,23 +197,22 @@ class _PaymentDesktopLayoutState extends State<PaymentDesktopLayout> {
                         FractionallySizedBox(
                           widthFactor: .75,
                           child: Padding(
-                            padding: const EdgeInsets.only(bottom: 20.0, top: 20.0),
+                            padding:
+                                const EdgeInsets.only(bottom: 20.0, top: 20.0),
                             child: Container(
-                                decoration: BoxDecoration(
+                              decoration: BoxDecoration(
                                   border: Border.all(
-                                    color:  Colors.black,
-                                    width: 1.0,
-                                  )
-                                ),
-                                // color: Colors.blueGrey,
-                                child: TextField(
-                                  controller: paymentController,
-                                  decoration: const InputDecoration(
+                                color: Colors.black,
+                                width: 1.0,
+                              )),
+                              // color: Colors.blueGrey,
+                              child: TextField(
+                                controller: paymentController,
+                                decoration: const InputDecoration(
                                     border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(Radius.zero)
-                                    )
-                                  ),
-                                ),
+                                        borderRadius:
+                                            BorderRadius.all(Radius.zero))),
+                              ),
                             ),
                           ),
                         ),
@@ -209,19 +221,30 @@ class _PaymentDesktopLayoutState extends State<PaymentDesktopLayout> {
                           child: Padding(
                             padding: const EdgeInsets.only(bottom: 10.0),
                             child: ElevatedButton(
-                                onPressed: () async{
-                                  PaymentModel paymentModel = PaymentModel(sender: '', amount: double.tryParse(paymentController.text) ?? 0.0, mode: paymentMode, category: selectedCategory, timeSent: DateTime.now());
-                                  await FirebaseFirestore.instance.collection('payments').doc(uuid.v1()).set(paymentModel.toMap());
+                                onPressed: () async {
+                                  PaymentModel paymentModel = PaymentModel(
+                                      sender: '',
+                                      amount: double.tryParse(
+                                              paymentController.text) ??
+                                          0.0,
+                                      mode: paymentMode,
+                                      category: selectedCategory,
+                                      timeSent: DateTime.now());
+                                  await FirebaseFirestore.instance
+                                      .collection('payments')
+                                      .doc(uuid.v1())
+                                      .set(paymentModel.toMap());
                                   await _uploadDataToFirebase('');
                                   uploadNewBal();
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.blue,
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.zero,
-                                  )
-                                ),
-                                child: const BoldText( text: 'Send Payment',)),
+                                    backgroundColor: Colors.blue,
+                                    shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.zero,
+                                    )),
+                                child: const BoldText(
+                                  text: 'Send Payment',
+                                )),
                           ),
                         ),
                       ],
@@ -232,7 +255,7 @@ class _PaymentDesktopLayoutState extends State<PaymentDesktopLayout> {
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width * 1/2,
+              width: MediaQuery.of(context).size.width * 1 / 2,
               // color: Colors.yellow,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -252,8 +275,15 @@ class _PaymentDesktopLayoutState extends State<PaymentDesktopLayout> {
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                BoldText(text: 'Ksh: $balance', fontSize: 22,),
-                                BoldText(text: '  (Expected new bal. ${expectedTotal.toString()} )', fontWeight: FontWeight.normal,)
+                                BoldText(
+                                  text: 'Ksh: $balance',
+                                  fontSize: 22,
+                                ),
+                                BoldText(
+                                  text:
+                                      '  (Expected new bal. ${expectedTotal.toString()} )',
+                                  fontWeight: FontWeight.normal,
+                                )
                               ],
                             ),
                           )
@@ -266,7 +296,10 @@ class _PaymentDesktopLayoutState extends State<PaymentDesktopLayout> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const BoldText(text: 'Payment Info', fontSize: 22,),
+                        const BoldText(
+                          text: 'Payment Info',
+                          fontSize: 22,
+                        ),
                         const Text('payment method'),
                         SizedBox(
                           child: Column(
@@ -276,7 +309,7 @@ class _PaymentDesktopLayoutState extends State<PaymentDesktopLayout> {
                                   Radio(
                                       value: 1,
                                       groupValue: selectedValue,
-                                      onChanged: (value){
+                                      onChanged: (value) {
                                         setState(() {
                                           selectedValue = value!;
                                         });
@@ -284,13 +317,12 @@ class _PaymentDesktopLayoutState extends State<PaymentDesktopLayout> {
                                   const BoldText(text: 'Mobile Money'),
                                 ],
                               ),
-
                               Row(
                                 children: [
                                   Radio(
                                       value: 2,
                                       groupValue: selectedValue,
-                                      onChanged: (value){
+                                      onChanged: (value) {
                                         setState(() {
                                           selectedValue = value!;
                                         });
@@ -298,14 +330,14 @@ class _PaymentDesktopLayoutState extends State<PaymentDesktopLayout> {
                                   const BoldText(text: 'Cash'),
                                 ],
                               ),
-
                             ],
                           ),
                         ),
                         // const BoldText(text: "Sender's Account Name"),
                         const Text("Sender's Account Name"),
                         // const BoldText(text: 'John Doe'),
-                        const Text('John Doe',
+                        const Text(
+                          'John Doe',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
@@ -313,14 +345,25 @@ class _PaymentDesktopLayoutState extends State<PaymentDesktopLayout> {
                         SizedBox(
                           child: Column(
                             children: [
-                              const BoldText(text: 'BreakDown', fontSize: 22,),
+                              const BoldText(
+                                text: 'BreakDown',
+                                fontSize: 22,
+                              ),
                               for (var vote in categoryAmounts.entries)
                                 SizedBox(
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      BoldText(text: vote.key, fontWeight: FontWeight.normal, fontSize: 18,),
-                                      BoldText(text: vote.value.toString(), fontSize: 22,)
+                                      BoldText(
+                                        text: vote.key,
+                                        fontWeight: FontWeight.normal,
+                                        fontSize: 18,
+                                      ),
+                                      BoldText(
+                                        text: vote.value.toString(),
+                                        fontSize: 22,
+                                      )
                                     ],
                                   ),
                                 ),

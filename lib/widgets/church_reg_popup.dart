@@ -11,12 +11,11 @@ class CustomPopupDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Custom Popup Dialog'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const BoldText(text: 'Church Registration Form'),
+          const BoldText(text: 'Church Registration Form', fontSize: 22.0),
           const Padding(
             padding: EdgeInsets.only(top: 15.0, bottom: 10.0),
             child: MyDropdown(),
@@ -59,8 +58,6 @@ class CustomPopupDialog extends StatelessWidget {
                   border: OutlineInputBorder(),
                 ),
               )),
-          ElevatedButton(
-              onPressed: () {}, child: const BoldText(text: 'Register Church'))
         ],
       ),
       actions: <Widget>[
@@ -68,6 +65,9 @@ class CustomPopupDialog extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).pop();
             },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.deepPurpleAccent,
+            ),
             child: const BoldText(text: 'Register Church'))
       ],
     );
